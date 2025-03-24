@@ -1,4 +1,4 @@
-#include "graph/graph.h"
+#include "graph/graph.h" 
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -8,9 +8,8 @@ void showMenu() {
     cout << "============================\n";
     cout << "  Planeador de Rotas Urbanas \n";
     cout << "============================\n";
-    cout << "1. Melhor Rota\n";
-    cout << "2. Rota Alternativa Independente\n";
-    cout << "3. Sair\n";
+    cout << "1. Melhor Rota e Rota Alternativa Independente\n";
+    cout << "2. Sair\n";
     cout << "Escolha uma opcao: ";
 }
 
@@ -25,7 +24,7 @@ int main() {
     do {
         showMenu();
         cin >> option;
-        if (option == 1 || option == 2) {
+        if (option == 1) {
             cout << "Modo (driving/walking): ";
             cin >> mode;
             cout << "Origem (ID): ";
@@ -41,19 +40,29 @@ int main() {
                 continue;
             }
 
-            if (option == 1) {
-                auto bestRoute = graph.findBestRoute(sourceCode, destinationCode, mode);
-                graph.displayRoute(bestRoute, graph.getRouteTime(bestRoute, mode), "BestDrivingRoute", cout);
-            } else if (option == 2) {
-                auto altRoute = graph.findAlternativeRoute(sourceCode, destinationCode, mode);
-                graph.displayRoute(altRoute, graph.getRouteTime(altRoute, mode), "AlternativeDrivingRoute", cout);
+            auto [bestRoute, altRoute] = graph.findRoutes(sourceCode, destinationCode, mode);
+
+            cout << "Source:" << sourceId << "\n";
+            cout << "Destination:" << destinationId << "\n";
+
+            if (!bestRoute.empty()) {
+                graph.displayRoutes(bestRoute, graph.getRouteTime(bestRoute, mode), "BestDrivingRoute", cout);
+            } else {
+                cout << "BestDrivingRoute:none\n";
             }
-        } else if (option == 3) {
+
+            if (!altRoute.empty()) {
+                graph.displayRoutes(altRoute, graph.getRouteTime(altRoute, mode), "AlternativeDrivingRoute", cout);
+            } else {
+                cout << "AlternativeDrivingRoute:none\n";
+            }
+
+        } else if (option == 2) {
             cout << "Encerrando o programa...\n";
         } else {
             cout << "Opcao invalida. Tente novamente.\n";
         }
-    } while (option != 3);
+    } while (option != 2);
 
     return 0;
 }

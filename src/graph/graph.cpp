@@ -69,6 +69,12 @@ std::vector<std::string> Graph::dijkstra(const std::string& source, const std::s
     std::unordered_map<std::string, std::string> parent;
     std::priority_queue<std::pair<int, std::string>, std::vector<std::pair<int, std::string>>, std::greater<>> pq;
 
+    if (nodes.find(source) == nodes.end() || nodes.find(dest) == nodes.end()) {
+        std::cerr << "ERRO: Origem ou destino não encontrados." << std::endl;
+        return {};
+    }
+    
+
     for (const auto& node : nodes) {
         dist[node.first] = std::numeric_limits<int>::max();
     }
@@ -111,26 +117,48 @@ std::vector<std::string> Graph::dijkstra(const std::string& source, const std::s
     return path;
 }
 
-// Melhor rota
-std::vector<std::string> Graph::findBestRoute(const std::string& source, const std::string& dest, const std::string& mode) {
-    return dijkstra(source, dest, mode);
-}
+std::pair<std::vector<std::string>, std::vector<std::string>>
+Graph::findRoutes(const std::string& source, const std::string& dest, const std::string& mode) {
+    auto bestRoute = dijkstra(source, dest, mode);
+    std::vector<std::string> altRoute;
 
-// Rota alternativa independente
-std::vector<std::string> Graph::findAlternativeRoute(const std::string& source, const std::string& dest, const std::string& mode) {
-    auto bestRoute = findBestRoute(source, dest, mode);
-    if (bestRoute.empty()) return {};
+    if (!bestRoute.empty()) {
+        std::unordered_set<std::string> blockedNodes(bestRoute.begin() + 1, bestRoute.end() - 1);
 
-    std::unordered_set<std::string> blockedNodes(bestRoute.begin() + 1, bestRoute.end() - 1);
+        for (auto& node : nodes) {
+            if (blockedNodes.count(node.first)) continue;
+            
+            auto originalAdj = nodes[node.first].adj;
+            nodes[node.first].adj.erase(
+                std::remove_if(nodes[node.first].adj.begin(), nodes[node.first].adj.end(),
+                            [&](const Edge& edge) { return blockedNodes.count(edge.dest); }),
+                nodes[node.first].adj.end()
+            );
 
-    for (auto& node : nodes) {
-        if (blockedNodes.count(node.first)) continue;
-        auto altRoute = dijkstra(source, dest, mode);
-        if (!altRoute.empty() && altRoute != bestRoute) {
-            return altRoute;
+            auto tempRoute = dijkstra(source, dest, mode);
+            nodes[node.first].adj = originalAdj;
+
+            if (!tempRoute.empty() && tempRoute != bestRoute) {
+                altRoute = tempRoute;
+                break;
+            }
         }
     }
-    return {};
+
+    return {bestRoute, altRoute};
+}
+
+void Graph::displayRoutes(const std::vector<std::string>& route, int totalTime, const std::string& type, std::ostream& output) {
+    if (route.empty()) {
+        output << type << ":none\n";
+    } else {
+        output << type << ":";
+        for (size_t i = 0; i < route.size(); ++i) {
+            output << route[i];
+            if (i < route.size() - 1) output << ",";
+        }
+        output << "(" << totalTime << ")\n";
+    }
 }
 
 int Graph::getRouteTime(const std::vector<std::string>& route, const std::string& mode) {
@@ -144,17 +172,4 @@ int Graph::getRouteTime(const std::vector<std::string>& route, const std::string
         }
     }
     return totalTime;
-}
-
-void Graph::displayRoute(const std::vector<std::string>& route, int totalTime, const std::string& type, std::ostream& output) {
-    if (route.empty()) {
-        output << type << ":none\n";
-    } else {
-        output << type << ":";
-        for (size_t i = 0; i < route.size(); ++i) {
-            output << route[i];
-            if (i < route.size() - 1) output << ",";
-        }
-        output << "(" << totalTime << ")\n";
-    }
 }

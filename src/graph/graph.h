@@ -31,11 +31,12 @@ public:
     void loadDistances(const std::string& filename);
     std::string getCodeFromId(const std::string& id);
 
-    std::vector<std::string> findBestRoute(const std::string& source, const std::string& dest, const std::string& mode);
-    std::vector<std::string> findAlternativeRoute(const std::string& source, const std::string& dest, const std::string& mode);
+    std::pair<std::vector<std::string>, std::vector<std::string>> findRoutes(const std::string& source, const std::string& dest, const std::string& mode);
+    void displayRoutes(const std::vector<std::string>& route, int totalTime, const std::string& type, std::ostream& output);
 
     int getRouteTime(const std::vector<std::string>& route, const std::string& mode);
-    void displayRoute(const std::vector<std::string>& route, int totalTime, const std::string& type, std::ostream& output);
+
+
 };
 
 #endif // GRAPH_H
