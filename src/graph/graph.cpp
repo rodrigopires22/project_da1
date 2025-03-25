@@ -6,6 +6,7 @@
 #include <queue>
 #include <limits>
 
+
 void Graph::loadLocations(const std::string& filename) {
     std::ifstream file(filename);
     if (!file) {
@@ -26,6 +27,7 @@ void Graph::loadLocations(const std::string& filename) {
 
         nodes[code] = {code, {}, std::stoi(parking) != 0};
         idToCode[id] = code;
+        codeToId[code] = id;
     }
 }
 
@@ -49,10 +51,30 @@ void Graph::loadDistances(const std::string& filename) {
 
         int drivingTime = (driving == "X") ? std::numeric_limits<int>::max() : std::stoi(driving);
         int walkingTime = (walking == "X") ? std::numeric_limits<int>::max() : std::stoi(walking);
-
-        nodes[loc1].adj.push_back({loc2, drivingTime, walkingTime});
-        nodes[loc2].adj.push_back({loc1, drivingTime, walkingTime});
+        if (drivingTime != std::numeric_limits<int>::max()) {
+            nodes[loc1].adj.push_back({loc2, drivingTime, walkingTime});
+            nodes[loc2].adj.push_back({loc1, drivingTime, walkingTime});
+        }        
     }
+}
+void Graph::displayGraph() {
+    std::cout << "=== Grafo Carregado ===" << std::endl;
+    for (const auto& [code, node] : nodes) {
+        std::cout << "Nó: " << code << " (Parking: " << (node.hasParking ? "Sim" : "Não") << ")\n";
+        for (const auto& edge : node.adj) {
+            std::cout << " -> " << edge.dest << " (Driving: " << edge.drivingTime 
+                      << ", Walking: " << edge.walkingTime << ")\n";
+        }
+        std::cout << "----------------------------\n";
+    }
+}
+
+std::vector<std::string> Graph::convertCodesToIds(const std::vector<std::string>& route) {
+    std::vector<std::string> convertedRoute;
+    for (const auto& code : route) {
+        convertedRoute.push_back(codeToId[code]);
+    }
+    return convertedRoute;
 }
 
 std::string Graph::getCodeFromId(const std::string& id) {
@@ -63,17 +85,10 @@ std::string Graph::getCodeFromId(const std::string& id) {
     return idToCode[id];
 }
 
-
 std::vector<std::string> Graph::dijkstra(const std::string& source, const std::string& dest, const std::string& mode) {
     std::unordered_map<std::string, int> dist;
     std::unordered_map<std::string, std::string> parent;
     std::priority_queue<std::pair<int, std::string>, std::vector<std::pair<int, std::string>>, std::greater<>> pq;
-
-    if (nodes.find(source) == nodes.end() || nodes.find(dest) == nodes.end()) {
-        std::cerr << "ERRO: Origem ou destino não encontrados." << std::endl;
-        return {};
-    }
-    
 
     for (const auto& node : nodes) {
         dist[node.first] = std::numeric_limits<int>::max();
@@ -86,17 +101,13 @@ std::vector<std::string> Graph::dijkstra(const std::string& source, const std::s
         auto [currentDist, currentNode] = pq.top();
         pq.pop();
 
-        if (dist[currentNode] < currentDist) continue;
-
-        if (currentNode == dest) break;
+        if (currentDist > dist[currentNode]) continue;
 
         for (const auto& edge : nodes[currentNode].adj) {
-            int travelTime = (mode == "driving") ? edge.drivingTime : edge.walkingTime;
+            int weight = (mode == "driving") ? edge.drivingTime : edge.walkingTime;
+            if (weight == std::numeric_limits<int>::max()) continue;
 
-            if (travelTime == std::numeric_limits<int>::max()) continue;
-
-            int newDist = currentDist + travelTime;
-
+            int newDist = currentDist + weight;
             if (newDist < dist[edge.dest]) {
                 dist[edge.dest] = newDist;
                 parent[edge.dest] = currentNode;
@@ -113,30 +124,32 @@ std::vector<std::string> Graph::dijkstra(const std::string& source, const std::s
     }
     path.push_back(source);
     std::reverse(path.begin(), path.end());
-
     return path;
 }
 
-std::pair<std::vector<std::string>, std::vector<std::string>>
+std::tuple<std::vector<std::string>, std::vector<std::string>, int, int>
 Graph::findRoutes(const std::string& source, const std::string& dest, const std::string& mode) {
     auto bestRoute = dijkstra(source, dest, mode);
     std::vector<std::string> altRoute;
 
     if (!bestRoute.empty()) {
-        std::unordered_set<std::string> blockedNodes(bestRoute.begin() + 1, bestRoute.end() - 1);
+        for (size_t i = 0; i < bestRoute.size() - 1; ++i) {
+            std::string from = bestRoute[i];
+            std::string to = bestRoute[i + 1];
 
-        for (auto& node : nodes) {
-            if (blockedNodes.count(node.first)) continue;
-            
-            auto originalAdj = nodes[node.first].adj;
-            nodes[node.first].adj.erase(
-                std::remove_if(nodes[node.first].adj.begin(), nodes[node.first].adj.end(),
-                            [&](const Edge& edge) { return blockedNodes.count(edge.dest); }),
-                nodes[node.first].adj.end()
+            auto originalAdj = nodes[from].adj;
+
+            nodes[from].adj.erase(
+                std::remove_if(
+                    nodes[from].adj.begin(),
+                    nodes[from].adj.end(),
+                    [&](const Edge& edge) { return edge.dest == to; }
+                ),
+                nodes[from].adj.end()
             );
 
             auto tempRoute = dijkstra(source, dest, mode);
-            nodes[node.first].adj = originalAdj;
+            nodes[from].adj = originalAdj;
 
             if (!tempRoute.empty() && tempRoute != bestRoute) {
                 altRoute = tempRoute;
@@ -145,7 +158,8 @@ Graph::findRoutes(const std::string& source, const std::string& dest, const std:
         }
     }
 
-    return {bestRoute, altRoute};
+    return {convertCodesToIds(bestRoute), convertCodesToIds(altRoute),
+            getRouteTime(bestRoute, mode), getRouteTime(altRoute, mode)};
 }
 
 void Graph::displayRoutes(const std::vector<std::string>& route, int totalTime, const std::string& type, std::ostream& output) {
@@ -157,7 +171,11 @@ void Graph::displayRoutes(const std::vector<std::string>& route, int totalTime, 
             output << route[i];
             if (i < route.size() - 1) output << ",";
         }
-        output << "(" << totalTime << ")\n";
+        if (totalTime == std::numeric_limits<int>::max()) {
+            output << "none\n";
+        } else {
+            output << "(" << totalTime << ")\n";
+        }        
     }
 }
 
@@ -172,4 +190,19 @@ int Graph::getRouteTime(const std::vector<std::string>& route, const std::string
         }
     }
     return totalTime;
+}
+
+void Graph::printEdgesFrom(const std::string& id) {
+    std::string code = getCodeFromId(id);
+    if (nodes.find(code) == nodes.end()) {
+        std::cout << "Nó com ID " << id << " não encontrado.\n";
+        return;
+    }
+
+    std::cout << "Ligações a partir do nó " << id << " (" << code << "):\n";
+    for (const auto& edge : nodes[code].adj) {
+        std::cout << " -> " << edge.dest
+                  << " (Driving: " << edge.drivingTime
+                  << ", Walking: " << edge.walkingTime << ")\n";
+    }
 }
