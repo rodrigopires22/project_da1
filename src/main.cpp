@@ -1,8 +1,9 @@
-#include "graph/graph.h" 
+#include "graph/graph.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <unordered_set>
+#include <set>
 using namespace std;
 
 void showMenu() {
@@ -22,6 +23,33 @@ string extractValue(const string& line) {
     value.erase(0, value.find_first_not_of(" \t\r\n"));
     value.erase(value.find_last_not_of(" \t\r\n") + 1);
     return value;
+}
+
+set<pair<string, string>> parseAvoidSegments(const string& segmentStr, Graph& graph) {
+    set<pair<string, string>> segments;
+    if (segmentStr.empty()) return segments;
+
+    stringstream ss(segmentStr);
+    string segment;
+    while (getline(ss, segment, ')')) {
+        size_t start = segment.find('(');
+        if (start == string::npos) continue;
+
+        string pairStr = segment.substr(start + 1);
+        size_t comma = pairStr.find(',');
+        if (comma == string::npos) continue;
+
+        string id1 = pairStr.substr(0, comma);
+        string id2 = pairStr.substr(comma + 1);
+
+        string code1 = graph.getCodeFromId(id1);
+        string code2 = graph.getCodeFromId(id2);
+
+        if (!code1.empty() && !code2.empty()) {
+            segments.insert({code1, code2});
+        }
+    }
+    return segments;
 }
 
 void processBatchFile(Graph& graph, const string& filenameIn, const string& filenameOut) {
@@ -44,60 +72,49 @@ void processBatchFile(Graph& graph, const string& filenameIn, const string& file
             sourceId = extractValue(line);
             getline(input, line);
             destId = extractValue(line);
+            getline(input, line);
+            string avoidNodesStr = extractValue(line);
+            getline(input, line);
+            string avoidSegmentsStr = extractValue(line);
+            getline(input, line);
+            string includeNodeId = extractValue(line);
 
             string sourceCode = graph.getCodeFromId(sourceId);
             string destCode = graph.getCodeFromId(destId);
+            string includeCode = graph.getCodeFromId(includeNodeId);
 
             if (sourceCode.empty() || destCode.empty()) {
                 output << "ERRO: ID inválido. Ignorando este pedido.\n\n";
                 continue;
             }
 
-            if (mode == "driving") {
-                // T2.2 - Restricted Route
-                string avoidNodesStr;
-                getline(input, line); // AvoidNodes
-                avoidNodesStr = extractValue(line);
-
-                getline(input, line); // Skip AvoidSegments
-                getline(input, line); // Skip IncludeNode
-
-                unordered_set<string> avoidCodes;
-                if (!avoidNodesStr.empty()) {
-                    stringstream ss(avoidNodesStr);
-                    string id;
-                    while (getline(ss, id, ',')) {
-                        string code = graph.getCodeFromId(id);
-                        if (!code.empty()) avoidCodes.insert(code);
-                    }
+            unordered_set<string> avoidCodes;
+            if (!avoidNodesStr.empty()) {
+                stringstream ss(avoidNodesStr);
+                string id;
+                while (getline(ss, id, ',')) {
+                    string code = graph.getCodeFromId(id);
+                    if (!code.empty()) avoidCodes.insert(code);
                 }
+            }
 
-                auto [restrictedRoute, totalTime] = graph.findRestrictedRoute(sourceCode, destCode, mode, avoidCodes);
+            set<pair<string, string>> avoidSegments = parseAvoidSegments(avoidSegmentsStr, graph);
 
-                output << "Source:" << sourceId << "\n";
-                output << "Destination:" << destId << "\n";
+            auto [restrictedRoute, totalTime] = graph.findRestrictedRoute(
+                sourceCode, destCode, mode, avoidCodes, avoidSegments, includeCode);
 
-                if (restrictedRoute.empty()) {
-                    output << "RestrictedDrivingRoute:none\n\n";
-                } else {
-                    output << "RestrictedDrivingRoute:";
-                    for (size_t i = 0; i < restrictedRoute.size(); ++i) {
-                        output << restrictedRoute[i];
-                        if (i < restrictedRoute.size() - 1) output << ",";
-                    }
-                    output << "(" << totalTime << ")\n\n";
-                }
+            output << "Source:" << sourceId << "\n";
+            output << "Destination:" << destId << "\n";
 
+            if (restrictedRoute.empty()) {
+                output << "RestrictedDrivingRoute:none\n\n";
             } else {
-                // T2.1 - Best and Alternative Route
-                auto [best, alt, timeBest, timeAlt] = graph.findRoutes(sourceCode, destCode, mode);
-
-                output << "Source:" << sourceId << "\n";
-                output << "Destination:" << destId << "\n";
-
-                graph.displayRoutes(best, timeBest, "Best" + mode + "Route", output);
-                graph.displayRoutes(alt, timeAlt, "Alternative" + mode + "Route", output);
-                output << "\n";
+                output << "RestrictedDrivingRoute:";
+                for (size_t i = 0; i < restrictedRoute.size(); ++i) {
+                    output << restrictedRoute[i];
+                    if (i < restrictedRoute.size() - 1) output << ",";
+                }
+                output << "(" << totalTime << ")\n\n";
             }
         }
     }
@@ -165,7 +182,7 @@ int main() {
                 processBatchFile(graph, "input.txt", "output.txt");
                 cout << "Resultados escritos em main/output.txt\n";
             } else if (inputChoice == 2) {
-                string sourceId, destId, avoidStr;
+                string sourceId, destId, avoidStr, segmentStr, includeId;
                 cout << "Origem (ID): ";
                 cin >> sourceId;
                 cout << "Destino (ID): ";
@@ -173,9 +190,14 @@ int main() {
                 cin.ignore();
                 cout << "IDs a evitar (separados por vírgula): ";
                 getline(cin, avoidStr);
+                cout << "Segmentos a evitar (ex: (1,2),(3,4)): ";
+                getline(cin, segmentStr);
+                cout << "ID obrigatório a incluir no caminho: ";
+                getline(cin, includeId);
 
                 string sourceCode = graph.getCodeFromId(sourceId);
                 string destCode = graph.getCodeFromId(destId);
+                string includeCode = graph.getCodeFromId(includeId);
 
                 if (sourceCode.empty() || destCode.empty()) {
                     cout << "ID invalido. Tente novamente.\n";
@@ -190,7 +212,10 @@ int main() {
                     if (!code.empty()) avoidCodes.insert(code);
                 }
 
-                auto [route, time] = graph.findRestrictedRoute(sourceCode, destCode, "driving", avoidCodes);
+                set<pair<string, string>> avoidSegments = parseAvoidSegments(segmentStr, graph);
+
+                auto [route, time] = graph.findRestrictedRoute(
+                    sourceCode, destCode, "driving", avoidCodes, avoidSegments, includeCode);
 
                 cout << "Source:" << sourceId << "\n";
                 cout << "Destination:" << destId << "\n";

@@ -209,58 +209,76 @@ void Graph::printEdgesFrom(const std::string& id) {
 
 
 std::pair<std::vector<std::string>, int> Graph::findRestrictedRoute(
-    const std::string& source, const std::string& dest, const std::string& mode,
-    const std::unordered_set<std::string>& avoidNodes) {
+    const std::string& source,
+    const std::string& dest,
+    const std::string& mode,
+    const std::unordered_set<std::string>& avoidNodes,
+    const std::set<std::pair<std::string, std::string>>& avoidSegments,
+    const std::string& includeNode) {
 
-    std::unordered_map<std::string, int> dist;
-    std::unordered_map<std::string, std::string> parent;
-    std::priority_queue<std::pair<int, std::string>, std::vector<std::pair<int, std::string>>, std::greater<>> pq;
+    auto runDijkstra = [&](const std::string& src, const std::string& dst) -> std::pair<std::vector<std::string>, int> {
+        std::unordered_map<std::string, int> dist;
+        std::unordered_map<std::string, std::string> parent;
+        std::priority_queue<std::pair<int, std::string>, std::vector<std::pair<int, std::string>>, std::greater<>> pq;
 
-    for (const auto& node : nodes) {
-        dist[node.first] = std::numeric_limits<int>::max();
-    }
+        for (const auto& node : nodes)
+            dist[node.first] = std::numeric_limits<int>::max();
 
-    // Se a origem ou destino estão na lista de nós a evitar, nem tenta
-    if (avoidNodes.count(source) || avoidNodes.count(dest)) {
-        return {{}, std::numeric_limits<int>::max()};
-    }
+        if (avoidNodes.count(src) || avoidNodes.count(dst)) return {{}, std::numeric_limits<int>::max()};
 
-    dist[source] = 0;
-    pq.push({0, source});
+        dist[src] = 0;
+        pq.push({0, src});
 
-    while (!pq.empty()) {
-        auto [currentDist, currentNode] = pq.top();
-        pq.pop();
+        while (!pq.empty()) {
+            auto [currentDist, currentNode] = pq.top();
+            pq.pop();
 
-        if (avoidNodes.count(currentNode)) continue;
-        if (currentDist > dist[currentNode]) continue;
+            if (avoidNodes.count(currentNode)) continue;
+            if (currentDist > dist[currentNode]) continue;
 
-        for (const auto& edge : nodes[currentNode].adj) {
-            if (avoidNodes.count(edge.dest)) continue;
+            for (const auto& edge : nodes[currentNode].adj) {
+                if (avoidNodes.count(edge.dest)) continue;
+                if (avoidSegments.count({currentNode, edge.dest}) || avoidSegments.count({edge.dest, currentNode})) continue;
 
-            int weight = (mode == "driving") ? edge.drivingTime : edge.walkingTime;
-            if (weight == std::numeric_limits<int>::max()) continue;
+                int weight = (mode == "driving") ? edge.drivingTime : edge.walkingTime;
+                if (weight == std::numeric_limits<int>::max()) continue;
 
-            int newDist = currentDist + weight;
-            if (newDist < dist[edge.dest]) {
-                dist[edge.dest] = newDist;
-                parent[edge.dest] = currentNode;
-                pq.push({newDist, edge.dest});
+                int newDist = currentDist + weight;
+                if (newDist < dist[edge.dest]) {
+                    dist[edge.dest] = newDist;
+                    parent[edge.dest] = currentNode;
+                    pq.push({newDist, edge.dest});
+                }
             }
         }
+
+        if (dist[dst] == std::numeric_limits<int>::max()) return {{}, std::numeric_limits<int>::max()};
+
+        std::vector<std::string> path;
+        for (std::string at = dst; at != src; at = parent[at]) {
+            path.push_back(at);
+        }
+        path.push_back(src);
+        std::reverse(path.begin(), path.end());
+
+        return {path, dist[dst]};
+    };
+
+    // Se não houver nó obrigatório
+    if (includeNode.empty()) {
+        auto [path, time] = runDijkstra(source, dest);
+        return {convertCodesToIds(path), time};
     }
 
-    if (dist[dest] == std::numeric_limits<int>::max()) {
-        return {{}, std::numeric_limits<int>::max()};
-    }
+    // Dividir em duas partes: source → includeNode e includeNode → dest
+    auto [firstHalf, time1] = runDijkstra(source, includeNode);
+    auto [secondHalf, time2] = runDijkstra(includeNode, dest);
 
-    // Reconstituir o caminho
-    std::vector<std::string> path;
-    for (std::string at = dest; at != source; at = parent[at]) {
-        path.push_back(at);
-    }
-    path.push_back(source);
-    std::reverse(path.begin(), path.end());
+    if (firstHalf.empty() || secondHalf.empty()) return {{}, std::numeric_limits<int>::max()};
 
-    return {convertCodesToIds(path), dist[dest]};
+    // Concatenar sem repetir o includeNode
+    firstHalf.pop_back(); // remove includeNode do final
+    firstHalf.insert(firstHalf.end(), secondHalf.begin(), secondHalf.end());
+
+    return {convertCodesToIds(firstHalf), time1 + time2};
 }
