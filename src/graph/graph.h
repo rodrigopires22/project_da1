@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <string>
 #include <limits>
+#include <unordered_set>  
+
 
 struct Edge {
     std::string dest;
@@ -43,6 +45,9 @@ public:
     void displayRoutes(const std::vector<std::string>& route, int totalTime, const std::string& type, std::ostream& output);
     int getRouteTime(const std::vector<std::string>& route, const std::string& mode);
     void printEdgesFrom(const std::string& id);
+    std::pair<std::vector<std::string>, int> findRestrictedRoute(
+        const std::string& source, const std::string& dest,
+        const std::string& mode, const std::unordered_set<std::string>& avoidNodes);    
 };
 
 #endif // GRAPH_H

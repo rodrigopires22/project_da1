@@ -206,3 +206,61 @@ void Graph::printEdgesFrom(const std::string& id) {
                   << ", Walking: " << edge.walkingTime << ")\n";
     }
 }
+
+
+std::pair<std::vector<std::string>, int> Graph::findRestrictedRoute(
+    const std::string& source, const std::string& dest, const std::string& mode,
+    const std::unordered_set<std::string>& avoidNodes) {
+
+    std::unordered_map<std::string, int> dist;
+    std::unordered_map<std::string, std::string> parent;
+    std::priority_queue<std::pair<int, std::string>, std::vector<std::pair<int, std::string>>, std::greater<>> pq;
+
+    for (const auto& node : nodes) {
+        dist[node.first] = std::numeric_limits<int>::max();
+    }
+
+    // Se a origem ou destino estão na lista de nós a evitar, nem tenta
+    if (avoidNodes.count(source) || avoidNodes.count(dest)) {
+        return {{}, std::numeric_limits<int>::max()};
+    }
+
+    dist[source] = 0;
+    pq.push({0, source});
+
+    while (!pq.empty()) {
+        auto [currentDist, currentNode] = pq.top();
+        pq.pop();
+
+        if (avoidNodes.count(currentNode)) continue;
+        if (currentDist > dist[currentNode]) continue;
+
+        for (const auto& edge : nodes[currentNode].adj) {
+            if (avoidNodes.count(edge.dest)) continue;
+
+            int weight = (mode == "driving") ? edge.drivingTime : edge.walkingTime;
+            if (weight == std::numeric_limits<int>::max()) continue;
+
+            int newDist = currentDist + weight;
+            if (newDist < dist[edge.dest]) {
+                dist[edge.dest] = newDist;
+                parent[edge.dest] = currentNode;
+                pq.push({newDist, edge.dest});
+            }
+        }
+    }
+
+    if (dist[dest] == std::numeric_limits<int>::max()) {
+        return {{}, std::numeric_limits<int>::max()};
+    }
+
+    // Reconstituir o caminho
+    std::vector<std::string> path;
+    for (std::string at = dest; at != source; at = parent[at]) {
+        path.push_back(at);
+    }
+    path.push_back(source);
+    std::reverse(path.begin(), path.end());
+
+    return {convertCodesToIds(path), dist[dest]};
+}
