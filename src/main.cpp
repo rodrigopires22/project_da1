@@ -40,7 +40,7 @@ set<pair<string, string>> parseAvoidSegments(const string& segmentStr, Graph& gr
         if (comma == string::npos) continue;
 
         string id1 = pairStr.substr(0, comma);
-        string id2 = pairStr.substr(comma + 1);
+        string id2 = pairStr.substr(comma + 1);c
 
         string code1 = graph.getCodeFromId(id1);
         string code2 = graph.getCodeFromId(id2);

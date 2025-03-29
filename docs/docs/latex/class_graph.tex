@@ -1,0 +1,341 @@
+\doxysection{Graph Class Reference}
+\hypertarget{class_graph}{}\label{class_graph}\index{Graph@{Graph}}
+
+
+{\ttfamily \#include $<$graph.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_graph_a0b83eac5c4f2d6ecbcec3ffc2e70863d}{load\+Locations}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Loads locations from a CSV file and updates the graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a8707a00ead8fb838a591f21300785dcf}{load\+Distances}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Loads distances between locations from a CSV file and updates the graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_acc68ceaae5b44fc5465eafc854ad141e}{display\+Graph}} ()
+\begin{DoxyCompactList}\small\item\em Displays the graph\textquotesingle{}s nodes and their connections. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_graph_a4d408175cbbb266799890986d9ce45a4}{get\+Code\+From\+Id}} (const std\+::string \&id)
+\begin{DoxyCompactList}\small\item\em Retrieves the location code corresponding to a given ID. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{class_graph_aa3e9f89263bd3eb545f62d2e6ad926f3}{convert\+Codes\+To\+Ids}} (const std\+::vector$<$ std\+::string $>$ \&route)
+\begin{DoxyCompactList}\small\item\em Converts location codes to their corresponding IDs. \end{DoxyCompactList}\item 
+std\+::tuple$<$ std\+::vector$<$ std\+::string $>$, std\+::vector$<$ std\+::string $>$, int, int $>$ \mbox{\hyperlink{class_graph_a70924dca9907a7fa8aab25f1e83c8ed1}{find\+Routes}} (const std\+::string \&source, const std\+::string \&dest, const std\+::string \&mode)
+\begin{DoxyCompactList}\small\item\em Finds the best and alternative routes between two locations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a14aebc2ae0ed2a5f01512bac7b3ca1d9}{display\+Routes}} (const std\+::vector$<$ std\+::string $>$ \&route, int total\+Time, const std\+::string \&type, std\+::ostream \&output)
+\begin{DoxyCompactList}\small\item\em Displays a route and its total travel time in a formatted manner. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_af0346de219ec9a4920255a893b394ee6}{get\+Route\+Time}} (const std\+::vector$<$ std\+::string $>$ \&route, const std\+::string \&mode)
+\begin{DoxyCompactList}\small\item\em Calculates the total travel time for a given route. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a70d6da304dabfd6ea258cc741f137fbe}{print\+Edges\+From}} (const std\+::string \&id)
+\begin{DoxyCompactList}\small\item\em Prints all edges originating from a specific node. \end{DoxyCompactList}\item 
+std\+::pair$<$ std\+::vector$<$ std\+::string $>$, int $>$ \mbox{\hyperlink{class_graph_a07d3ea1a6fe53617bd6ceb6463f1aec8}{find\+Restricted\+Route}} (const std\+::string \&source, const std\+::string \&dest, const std\+::string \&mode, const std\+::unordered\+\_\+set$<$ std\+::string $>$ \&avoid\+Nodes, const std\+::set$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ \&avoid\+Segments, const std\+::string \&include\+Node)
+\begin{DoxyCompactList}\small\item\em Finds a route between two locations with restrictions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{class_graph_a1bf52b23579a960a4e66aa805546ace9}{dijkstra}} (const std\+::string \&source, const std\+::string \&dest, const std\+::string \&mode)
+\begin{DoxyCompactList}\small\item\em Computes the shortest path between two locations using Dijkstra\textquotesingle{}s algorithm. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{struct_node}{Node}} $>$ \mbox{\hyperlink{class_graph_a70b682ea94e98ca989eb2ba8867846b5}{nodes}}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \mbox{\hyperlink{class_graph_a2a61a06d79c0fe965fb973a129029d11}{id\+To\+Code}}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \mbox{\hyperlink{class_graph_ad225bc93d6a04db0208c2ce725eebbc1}{code\+To\+Id}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_graph_aa3e9f89263bd3eb545f62d2e6ad926f3}\index{Graph@{Graph}!convertCodesToIds@{convertCodesToIds}}
+\index{convertCodesToIds@{convertCodesToIds}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{convertCodesToIds()}{convertCodesToIds()}}
+{\footnotesize\ttfamily \label{class_graph_aa3e9f89263bd3eb545f62d2e6ad926f3} 
+std\+::vector$<$ std\+::string $>$ Graph\+::convert\+Codes\+To\+Ids (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{route}{}\end{DoxyParamCaption})}
+
+
+
+Converts location codes to their corresponding IDs. 
+
+This function takes a vector of location codes and converts them into their corresponding IDs using the {\ttfamily code\+To\+Id} mapping.
+
+
+\begin{DoxyParams}{Parameters}
+{\em route} & A vector of location codes representing a route. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of corresponding location IDs for the given codes.
+\end{DoxyReturn}
+The function iterates over each location code in the input vector, looks up the corresponding ID in the {\ttfamily code\+To\+Id} map, and appends it to the resulting vector.
+
+The time complexity is O(n), where n is the size of the input vector, as each code is processed exactly once. \Hypertarget{class_graph_a1bf52b23579a960a4e66aa805546ace9}\index{Graph@{Graph}!dijkstra@{dijkstra}}
+\index{dijkstra@{dijkstra}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{dijkstra()}{dijkstra()}}
+{\footnotesize\ttfamily \label{class_graph_a1bf52b23579a960a4e66aa805546ace9} 
+std\+::vector$<$ std\+::string $>$ Graph\+::dijkstra (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source}{, }\item[{const std\+::string \&}]{dest}{, }\item[{const std\+::string \&}]{mode}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Computes the shortest path between two locations using Dijkstra\textquotesingle{}s algorithm. 
+
+This function implements Dijkstra\textquotesingle{}s algorithm to find the shortest path between a source and destination node in the graph, based on the selected mode of transportation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The starting location code. \\
+\hline
+{\em dest} & The destination location code. \\
+\hline
+{\em mode} & The mode of transportation ("{}driving"{} or "{}walking"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector containing the codes of nodes representing the shortest path from the source to the destination. Returns an empty vector if no path exists.
+\end{DoxyReturn}
+The function initializes the distance map and priority queue, processes each node\textquotesingle{}s adjacency list, and updates the distances accordingly. It constructs the path by backtracking from the destination to the source using the parent map.
+
+The time complexity is O((V + E) log V), where V is the number of nodes and E is the number of edges. This arises from processing each edge and maintaining the priority queue. \Hypertarget{class_graph_acc68ceaae5b44fc5465eafc854ad141e}\index{Graph@{Graph}!displayGraph@{displayGraph}}
+\index{displayGraph@{displayGraph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{displayGraph()}{displayGraph()}}
+{\footnotesize\ttfamily \label{class_graph_acc68ceaae5b44fc5465eafc854ad141e} 
+void Graph\+::display\+Graph (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Displays the graph\textquotesingle{}s nodes and their connections. 
+
+This function prints the details of all nodes in the graph, including their parking availability and adjacency list connections. For each edge, the driving and walking times are displayed.
+
+Each node\textquotesingle{}s code and parking availability are printed, followed by its connections to other nodes with the respective driving and walking times. The graph structure is displayed in a human-\/readable format.
+
+The time complexity is O(n + m), where n is the number of nodes and m is the number of edges in the graph, as every node and its connections are iterated over once. \Hypertarget{class_graph_a14aebc2ae0ed2a5f01512bac7b3ca1d9}\index{Graph@{Graph}!displayRoutes@{displayRoutes}}
+\index{displayRoutes@{displayRoutes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{displayRoutes()}{displayRoutes()}}
+{\footnotesize\ttfamily \label{class_graph_a14aebc2ae0ed2a5f01512bac7b3ca1d9} 
+void Graph\+::display\+Routes (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{route}{, }\item[{int}]{total\+Time}{, }\item[{const std\+::string \&}]{type}{, }\item[{std\+::ostream \&}]{output}{}\end{DoxyParamCaption})}
+
+
+
+Displays a route and its total travel time in a formatted manner. 
+
+This function prints the details of a given route to the specified output stream. It includes the type of route (e.\+g., best or alternative), the sequence of locations in the route, and the total travel time if available.
+
+
+\begin{DoxyParams}{Parameters}
+{\em route} & A vector of location IDs representing the route. \\
+\hline
+{\em total\+Time} & The total travel time for the route, or std\+::numeric\+\_\+limits$<$int$>$\+::max() if no time is applicable. \\
+\hline
+{\em type} & The type of route (e.\+g., "{}best"{} or "{}alternative"{}). \\
+\hline
+{\em output} & The output stream where the formatted route will be printed.\\
+\hline
+\end{DoxyParams}
+The function handles cases where the route is empty by printing "{}none"{}. For valid routes, it formats the location IDs with commas between them, followed by the total travel time enclosed in parentheses. If the total time is set to std\+::numeric\+\_\+limits$<$int$>$\+::max(), "{}none"{} is printed for the time.
+
+The time complexity is O(n), where n is the number of locations in the route, as each location ID is processed once. \Hypertarget{class_graph_a07d3ea1a6fe53617bd6ceb6463f1aec8}\index{Graph@{Graph}!findRestrictedRoute@{findRestrictedRoute}}
+\index{findRestrictedRoute@{findRestrictedRoute}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{findRestrictedRoute()}{findRestrictedRoute()}}
+{\footnotesize\ttfamily \label{class_graph_a07d3ea1a6fe53617bd6ceb6463f1aec8} 
+std\+::pair$<$ std\+::vector$<$ std\+::string $>$, int $>$ Graph\+::find\+Restricted\+Route (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source}{, }\item[{const std\+::string \&}]{dest}{, }\item[{const std\+::string \&}]{mode}{, }\item[{const std\+::unordered\+\_\+set$<$ std\+::string $>$ \&}]{avoid\+Nodes}{, }\item[{const std\+::set$<$ std\+::pair$<$ std\+::string, std\+::string $>$ $>$ \&}]{avoid\+Segments}{, }\item[{const std\+::string \&}]{include\+Node}{}\end{DoxyParamCaption})}
+
+
+
+Finds a route between two locations with restrictions. 
+
+This function calculates the shortest path between a source and destination while considering various restrictions such as nodes to avoid, segments to avoid, and an optional mandatory node to include in the route.
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The starting location code. \\
+\hline
+{\em dest} & The destination location code. \\
+\hline
+{\em mode} & The mode of transportation ("{}driving"{} or "{}walking"{}). \\
+\hline
+{\em avoid\+Nodes} & A set of nodes that should be excluded from the route. \\
+\hline
+{\em avoid\+Segments} & A set of segments (pairs of nodes) that should be excluded from the route. \\
+\hline
+{\em include\+Node} & An optional node that must be included in the route. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pair containing\+:
+\begin{DoxyItemize}
+\item A vector of IDs representing the restricted route.
+\item The total travel time for the route.
+\end{DoxyItemize}
+\end{DoxyReturn}
+The function uses a helper lambda to execute a modified version of Dijkstra\textquotesingle{}s algorithm with the given restrictions. If a mandatory node is specified, the route is split into two parts\+: one from the source to the mandatory node and another from the mandatory node to the destination. The two paths are concatenated to form the complete route.
+
+The time complexity is O(k \texorpdfstring{$\ast$}{*} (V + E) log V), where k is the number of Dijkstra calls required (typically 1 or 2), V is the number of nodes, and E is the number of edges in the graph. \Hypertarget{class_graph_a70924dca9907a7fa8aab25f1e83c8ed1}\index{Graph@{Graph}!findRoutes@{findRoutes}}
+\index{findRoutes@{findRoutes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{findRoutes()}{findRoutes()}}
+{\footnotesize\ttfamily \label{class_graph_a70924dca9907a7fa8aab25f1e83c8ed1} 
+std\+::tuple$<$ std\+::vector$<$ std\+::string $>$, std\+::vector$<$ std\+::string $>$, int, int $>$ Graph\+::find\+Routes (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source}{, }\item[{const std\+::string \&}]{dest}{, }\item[{const std\+::string \&}]{mode}{}\end{DoxyParamCaption})}
+
+
+
+Finds the best and alternative routes between two locations. 
+
+This function calculates the shortest path (best route) using Dijkstra\textquotesingle{}s algorithm and attempts to find an alternative route by temporarily removing edges from the best route and re-\/running Dijkstra\textquotesingle{}s algorithm.
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The starting location code. \\
+\hline
+{\em dest} & The destination location code. \\
+\hline
+{\em mode} & The mode of transportation ("{}driving"{} or "{}walking"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A tuple containing\+:
+\begin{DoxyItemize}
+\item A vector of IDs for the best route.
+\item A vector of IDs for the alternative route (if found).
+\item The total time for the best route.
+\item The total time for the alternative route.
+\end{DoxyItemize}
+\end{DoxyReturn}
+The function uses the adjacency list to remove edges temporarily and tests alternative routes. It also converts location codes to IDs and calculates the total time for each route.
+
+The time complexity is approximately O(k \texorpdfstring{$\ast$}{*} (V + E) log V), where k is the number of edges in the best route, V is the number of nodes, and E is the number of edges in the graph. This accounts for multiple calls to Dijkstra\textquotesingle{}s algorithm. \Hypertarget{class_graph_a4d408175cbbb266799890986d9ce45a4}\index{Graph@{Graph}!getCodeFromId@{getCodeFromId}}
+\index{getCodeFromId@{getCodeFromId}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getCodeFromId()}{getCodeFromId()}}
+{\footnotesize\ttfamily \label{class_graph_a4d408175cbbb266799890986d9ce45a4} 
+std\+::string Graph\+::get\+Code\+From\+Id (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{id}{}\end{DoxyParamCaption})}
+
+
+
+Retrieves the location code corresponding to a given ID. 
+
+This function searches for the location code associated with a specific ID using the {\ttfamily id\+To\+Code} mapping. If the ID is not found, an error message is displayed, and an empty string is returned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID for which the corresponding location code is to be retrieved. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The location code corresponding to the given ID, or an empty string if the ID is not found.
+\end{DoxyReturn}
+The function checks if the ID exists in the {\ttfamily id\+To\+Code} map. If not, it logs an error message and returns an empty value. Otherwise, it retrieves and returns the corresponding code.
+
+The time complexity is O(1) on average for map lookups. \Hypertarget{class_graph_af0346de219ec9a4920255a893b394ee6}\index{Graph@{Graph}!getRouteTime@{getRouteTime}}
+\index{getRouteTime@{getRouteTime}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getRouteTime()}{getRouteTime()}}
+{\footnotesize\ttfamily \label{class_graph_af0346de219ec9a4920255a893b394ee6} 
+int Graph\+::get\+Route\+Time (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{route}{, }\item[{const std\+::string \&}]{mode}{}\end{DoxyParamCaption})}
+
+
+
+Calculates the total travel time for a given route. 
+
+This function computes the total time required to traverse a route based on the specified mode of transportation ("{}driving"{} or "{}walking"{}).
+
+
+\begin{DoxyParams}{Parameters}
+{\em route} & A vector of location codes representing the route. \\
+\hline
+{\em mode} & The mode of transportation ("{}driving"{} or "{}walking"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The total travel time for the route.
+\end{DoxyReturn}
+The function iterates through the edges connecting consecutive nodes in the route, accumulating the travel time based on the selected mode. If no valid edge is found between two nodes, the total time remains unaffected.
+
+The time complexity is O(n \texorpdfstring{$\ast$}{*} m), where n is the size of the route and m is the average number of adjacent edges per node, as each node\textquotesingle{}s adjacency list is searched for the next destination. \Hypertarget{class_graph_a8707a00ead8fb838a591f21300785dcf}\index{Graph@{Graph}!loadDistances@{loadDistances}}
+\index{loadDistances@{loadDistances}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{loadDistances()}{loadDistances()}}
+{\footnotesize\ttfamily \label{class_graph_a8707a00ead8fb838a591f21300785dcf} 
+void Graph\+::load\+Distances (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Loads distances between locations from a CSV file and updates the graph. 
+
+This function reads a CSV file containing pairs of locations along with driving and walking times. The extracted data is used to update the adjacency list of the graph with distance information.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file containing the distances to be loaded.\\
+\hline
+\end{DoxyParams}
+The function skips the first line of the file (header) and processes each subsequent line to extract data. Driving and walking times are read, and if the driving time is valid, the adjacency list of the graph is updated for both locations.
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::ifstream\+::failure} & If the file cannot be opened, an error message is printed, and the function returns without modifying the graph\textquotesingle{}s state.\\
+\hline
+\end{DoxyExceptions}
+The time complexity is O(n), where n is the number of lines in the CSV file, as each line is processed once. \Hypertarget{class_graph_a0b83eac5c4f2d6ecbcec3ffc2e70863d}\index{Graph@{Graph}!loadLocations@{loadLocations}}
+\index{loadLocations@{loadLocations}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{loadLocations()}{loadLocations()}}
+{\footnotesize\ttfamily \label{class_graph_a0b83eac5c4f2d6ecbcec3ffc2e70863d} 
+void Graph\+::load\+Locations (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Loads locations from a CSV file and updates the graph. 
+
+This function reads a CSV file containing locations, IDs, codes, and parking information. The extracted data is then stored in the internal data structures of the \doxylink{class_graph}{Graph} class.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file containing the locations to be loaded.\\
+\hline
+\end{DoxyParams}
+The function skips the first line of the file (header) and processes each subsequent line to extract data. It maps codes as keys and associates them with IDs and parking attributes.
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::ifstream\+::failure} & If the file cannot be opened, an error message is printed, and the function returns without modifying the graph\textquotesingle{}s state.\\
+\hline
+\end{DoxyExceptions}
+The time complexity is O(n), where n is the number of lines in the CSV file, as each line is processed once. \Hypertarget{class_graph_a70d6da304dabfd6ea258cc741f137fbe}\index{Graph@{Graph}!printEdgesFrom@{printEdgesFrom}}
+\index{printEdgesFrom@{printEdgesFrom}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{printEdgesFrom()}{printEdgesFrom()}}
+{\footnotesize\ttfamily \label{class_graph_a70d6da304dabfd6ea258cc741f137fbe} 
+void Graph\+::print\+Edges\+From (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{id}{}\end{DoxyParamCaption})}
+
+
+
+Prints all edges originating from a specific node. 
+
+This function displays the connections (edges) from a node identified by its ID. It includes the destination nodes and the respective driving and walking times.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the node whose edges are to be printed.\\
+\hline
+\end{DoxyParams}
+The function retrieves the corresponding code for the given ID using the {\ttfamily get\+Code\+From\+Id} method. If the node is not found, an error message is printed. Otherwise, the edges originating from the node are iterated and displayed in a formatted manner, showing destination, driving time, and walking time.
+
+The time complexity is O(m), where m is the number of edges originating from the node, as each edge in the adjacency list is processed once. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_graph_ad225bc93d6a04db0208c2ce725eebbc1}\index{Graph@{Graph}!codeToId@{codeToId}}
+\index{codeToId@{codeToId}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{codeToId}{codeToId}}
+{\footnotesize\ttfamily \label{class_graph_ad225bc93d6a04db0208c2ce725eebbc1} 
+std\+::unordered\+\_\+map$<$std\+::string, std\+::string$>$ Graph\+::code\+To\+Id\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_graph_a2a61a06d79c0fe965fb973a129029d11}\index{Graph@{Graph}!idToCode@{idToCode}}
+\index{idToCode@{idToCode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{idToCode}{idToCode}}
+{\footnotesize\ttfamily \label{class_graph_a2a61a06d79c0fe965fb973a129029d11} 
+std\+::unordered\+\_\+map$<$std\+::string, std\+::string$>$ Graph\+::id\+To\+Code\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_graph_a70b682ea94e98ca989eb2ba8867846b5}\index{Graph@{Graph}!nodes@{nodes}}
+\index{nodes@{nodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{nodes}{nodes}}
+{\footnotesize\ttfamily \label{class_graph_a70b682ea94e98ca989eb2ba8867846b5} 
+std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{struct_node}{Node}}$>$ Graph\+::nodes\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+User/\+CLion\+Projects/untitled37/project\+\_\+da1/src/graph/\mbox{\hyperlink{graph_8h}{graph.\+h}}\item 
+C\+:/\+Users/\+User/\+CLion\+Projects/untitled37/project\+\_\+da1/src/graph/\mbox{\hyperlink{graph_8cpp}{graph.\+cpp}}\end{DoxyCompactItemize}
