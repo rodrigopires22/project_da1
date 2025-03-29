@@ -12,7 +12,8 @@ void showMenu() {
     cout << "============================\n";
     cout << "1. Melhor Rota e Rota Alternativa Independente\n";
     cout << "2. Rota com Restrições \n";
-    cout << "3. Sair\n";
+	cout << "3. Rota Sustentável \n";
+    cout << "4. Sair\n";
     cout << "Escolha uma opcao: ";
 }
 
@@ -234,13 +235,115 @@ int main() {
                 cout << "Opcao invalida. Tente novamente.\n";
             }
 
-        } else if (option == 3) {
-            cout << "Encerrando o programa...\n";
-        } else {
-            cout << "Opcao invalida. Tente novamente.\n";
-        }
+        }   else if (option == 3) {
+                int inputChoice;
+                cout << "\n[3] Calcular Rota Sustentável \n";
+                cout << "1. Ler parâmetros do ficheiro input.txt\n";
+                cout << "2. Introduzir parâmetros manualmente\n";
+                cout << "Escolha: ";
+                cin >> inputChoice;
 
-    } while (option != 3);
+                if (inputChoice == 1) {
+                    processBatchFile(graph, "input.txt", "output.txt");
+                    cout << "Resultados escritos em main/output.txt\n";
+                }
+                else if (inputChoice == 2) {
+                    int maxWalkingTime;
+                    string sourceId, destId, avoidStr, segmentStr;
+                    cout << "Origem (ID): ";
+                    cin >> sourceId;
+                    cout << "Destino (ID): ";
+                    cin >> destId;
+                    cout << "Max Walking Time: ";
+                    cin >> maxWalkingTime;
+                    cin.ignore();
+                    cout << "IDs a evitar (separados por vírgula): ";
+                    getline(cin, avoidStr);
+                    cout << "Segmentos a evitar (ex: (1,2),(3,4)): ";
+                    getline(cin, segmentStr);
+
+                    string sourceCode = graph.getCodeFromId(sourceId);
+                    string destCode = graph.getCodeFromId(destId);
+
+                    if (sourceCode.empty() || destCode.empty()) {
+                        cout << "ID invalido. Tente novamente.\n";
+                        continue;
+                    }
+
+                    unordered_set<string> avoidCodes;
+                    stringstream ss(avoidStr);
+                    string id;
+                    while (getline(ss, id, ',')) {
+                        string code = graph.getCodeFromId(id);
+                        if (!code.empty()) avoidCodes.insert(code);
+                    }
+
+                    set<pair<string, string>> avoidSegments = parseAvoidSegments(segmentStr, graph);
+
+                    auto [fullRoute, totalTime, drivingRoute, drivingTime, walkingRoute, walkingTime, parkingNode] = graph.findEnvironmentallyFriendlyRoute(sourceCode, destCode, maxWalkingTime, avoidCodes, avoidSegments);
+                    cout << "Source:" << sourceId << "\n";
+
+                    cout << "Destination:" << destId << "\n";
+
+                    if (fullRoute.empty() || totalTime == std::numeric_limits<int>::max()) {
+                        cout << "DrivingRoute:none" << endl;
+                        cout << "ParkingNode:none" << endl;
+                        cout << "WalkingRoute:none" << endl;
+                        cout << "TotalTime:" << endl;
+                        cout << "No possible route with max. walking time of " << maxWalkingTime << " minutes\n";
+
+                        vector<tuple<vector<string>, int, vector<string>, int, vector<string>, int, string>> alternatives;
+                        int originalMaxWalkingTime = maxWalkingTime;
+                        int solutionsFound = 0;
+
+                        /*implementar aproximmate solution aqui:
+
+
+                        1a solução
+                        for (int step = 1; step <= 30 && solutionsFound < 2; step++) {
+                            int newMaxWalkingTime = originalMaxWalkingTime + step;
+                            auto [altFullRoute, altTotalTime, altDrivingRoute, altDrivingTime, altWalkingRoute, altWalkingTime, altParkingNode] = graph.findEnvironmentallyFriendlyRoute(sourceCode, destCode, newMaxWalkingTime, avoidCodes, avoidSegments);
+                            if(!altfullRoute.empty() || altTotalTime != std::numeric_limits<int>::max()){
+                                cout << "DrivingRoute";
+                                graph.displayRoutes(altDrivingRoute, altDrivingTime, "", cout);
+                                cout << "ParkingNode:" << graph.getIdFromCode(altParkingNode) << endl;
+                                cout << "WalkingRoute:";
+                                graph.displayRoutes(altWalkingRoute,altWalkingTime, "", cout);
+                                cout << "TotalTime:" << altTotalTime << endl;
+                                }
+                        }
+
+
+                        tentar encontrar a 2a solução
+                        aqui:
+                        */
+
+                    }
+
+                    else if (parkingNode.empty()) {
+                        cout << "DrivingRoute:none" << endl;
+                        cout << "ParkingNode:none" << endl;
+                        cout << "WalkingRoute:none" << endl;
+                        cout << "TotalTime:" << endl;
+                        cout << "No parking node available" << endl;
+                    }
+
+                    else if(!fullRoute.empty() || totalTime != std::numeric_limits<int>::max()){
+                        cout << "DrivingRoute";
+                        graph.displayRoutes(drivingRoute, drivingTime, "", cout);
+                        cout << "ParkingNode:" << graph.getIdFromCode(parkingNode) << endl;
+                        cout << "WalkingRoute:";
+                        graph.displayRoutes(walkingRoute, walkingTime, "", cout);
+                        cout << "TotalTime:" << totalTime << endl;
+                    }
+                    else {
+                        cout << "Opcao invalida. Tente novamente.\n";
+                    }
+                }
+
+            }
+
+    } while (option != 4);
 
     return 0;
 }

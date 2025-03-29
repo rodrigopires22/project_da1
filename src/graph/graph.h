@@ -42,6 +42,7 @@ public:
     void loadDistances(const std::string& filename);
     void displayGraph();
     std::string getCodeFromId(const std::string& id);
+    std::string getIdFromCode(const std::string& code);
     std::vector<std::string> convertCodesToIds(const std::vector<std::string>& route);
     std::tuple<std::vector<std::string>, std::vector<std::string>, int, int> findRoutes(const std::string& source, const std::string& dest, const std::string& mode);
     void displayRoutes(const std::vector<std::string>& route, int totalTime, const std::string& type, std::ostream& output);
@@ -54,6 +55,17 @@ public:
         const std::unordered_set<std::string>& avoidNodes,
         const std::set<std::pair<std::string, std::string>>& avoidSegments,
         const std::string& includeNode
+    );
+    std::tuple<std::vector<std::string>, int,
+               std::vector<std::string>, int,
+               std::vector<std::string>, int,
+               std::string>
+    findEnvironmentallyFriendlyRoute(
+        const std::string& source,
+        const std::string& dest,
+        int maxWalkingTime,
+        const std::unordered_set<std::string>& avoidNodes,
+        const std::set<std::pair<std::string, std::string>>& avoidSegments
     );
 };
 
