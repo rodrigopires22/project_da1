@@ -85,6 +85,13 @@ std::string Graph::getCodeFromId(const std::string& id) {
     return idToCode[id];
 }
 
+std::string Graph::getIdFromCode(const std::string& code) {
+  if (codeToId.find(code) == codeToId.end()) {
+    return "";
+  }
+  return codeToId[code];
+}
+
 std::vector<std::string> Graph::dijkstra(const std::string& source, const std::string& dest, const std::string& mode) {
     std::unordered_map<std::string, int> dist;
     std::unordered_map<std::string, std::string> parent;
@@ -281,4 +288,77 @@ std::pair<std::vector<std::string>, int> Graph::findRestrictedRoute(
     firstHalf.insert(firstHalf.end(), secondHalf.begin(), secondHalf.end());
 
     return {convertCodesToIds(firstHalf), time1 + time2};
+}
+
+// Returns: (full_route, total_time, driving_route, driving_time, walking_route, walking_time, parking_node)
+std::tuple<std::vector<std::string>, int,
+           std::vector<std::string>, int,
+           std::vector<std::string>, int,
+           std::string>
+Graph::findEnvironmentallyFriendlyRoute(
+    const std::string& source,
+    const std::string& dest,
+    int maxWalkingTime,
+    const std::unordered_set<std::string>& avoidNodes,
+    const std::set<std::pair<std::string, std::string>>& avoidSegments)
+{
+    std::vector<std::string> bestRoute;
+    std::vector<std::string> bestDrivingRoute;
+    std::vector<std::string> bestWalkingRoute;
+    std::string bestParkingNode;
+    int minTotalTime = std::numeric_limits<int>::max();
+    int bestWalkingTime = 0;
+    int bestDrivingTime = 0;
+
+    // Invalid if source or destination has parking
+    if (nodes.at(source).hasParking || nodes.at(dest).hasParking) {
+        return {{}, minTotalTime, {}, 0, {}, 0, ""};
+    }
+
+    // Find all the parking nodes
+    std::vector<std::string> parkingNodes;
+    for (const auto& [code, node] : nodes) {
+        if (node.hasParking && code != source && code != dest && !avoidNodes.count(code)) {
+            parkingNodes.push_back(code);
+        }
+    }
+
+    // If no parking nodes exist
+    if (parkingNodes.empty()) {
+        return {{}, minTotalTime, {}, 0, {}, 0, ""};
+    }
+
+    for (const auto& parkingNode : parkingNodes) {
+        auto drivingRoute = findRestrictedRoute(source, parkingNode, "driving", avoidNodes, avoidSegments, "");
+        auto walkingRoute = findRestrictedRoute(parkingNode, dest, "walking", avoidNodes, avoidSegments, "");
+
+        // Skip invalid routes
+        if (drivingRoute.first.empty() || walkingRoute.first.empty()) continue;
+
+        int walkingTime = walkingRoute.second;
+        if (walkingTime > maxWalkingTime) continue;
+
+        int totalTime = drivingRoute.second + walkingTime;
+
+        // Check if this route is better than the best one
+        if (totalTime < minTotalTime ||
+            (totalTime == minTotalTime && walkingTime > bestWalkingTime)) {
+            minTotalTime = totalTime;
+            bestWalkingTime = walkingTime;
+            bestDrivingTime = drivingRoute.second;
+            bestParkingNode = parkingNode;
+            bestDrivingRoute = drivingRoute.first;
+            bestWalkingRoute = walkingRoute.first;
+
+            // Combine the routes: driving + walking
+            bestRoute = drivingRoute.first;
+            bestRoute.pop_back();  // Remove the last node of the driving route (because it's the parking node)
+            bestRoute.insert(bestRoute.end(), walkingRoute.first.begin(), walkingRoute.first.end());
+        }
+    }
+
+    return {bestRoute, minTotalTime,
+            bestDrivingRoute, bestDrivingTime,
+            bestWalkingRoute, bestWalkingTime,
+            bestParkingNode};
 }
