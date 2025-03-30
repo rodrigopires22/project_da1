@@ -2,13 +2,18 @@
 \hypertarget{struct_edge}{}\label{struct_edge}\index{Edge@{Edge}}
 
 
+Represents an edge in the graph, including travel times and the destination node.  
+
+
+
+
 {\ttfamily \#include $<$graph.\+h$>$}
 
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 bool \mbox{\hyperlink{struct_edge_ab6c35dc1902b8eb155fb0194a2afcdb1}{operator==}} (const \mbox{\hyperlink{struct_edge}{Edge}} \&other) const
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Equality operator for \doxylink{struct_edge}{Edge} comparison. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -20,13 +25,28 @@ int \mbox{\hyperlink{struct_edge_a8ad2188a090eba839334279cdd55c73f}{walking\+Tim
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Represents an edge in the graph, including travel times and the destination node. 
+
 \doxysubsection{Member Function Documentation}
 \Hypertarget{struct_edge_ab6c35dc1902b8eb155fb0194a2afcdb1}\index{Edge@{Edge}!operator==@{operator==}}
 \index{operator==@{operator==}!Edge@{Edge}}
 \doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
 {\footnotesize\ttfamily \label{struct_edge_ab6c35dc1902b8eb155fb0194a2afcdb1} 
-bool Edge\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_edge}{Edge}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+bool Edge\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_edge}{Edge}} \&}]{other}{}\end{DoxyParamCaption}) const}
 
+
+
+Equality operator for \doxylink{struct_edge}{Edge} comparison. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The other \doxylink{struct_edge}{Edge} to compare with. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if both edges are equal, false otherwise. 
+\end{DoxyReturn}
 
 
 \doxysubsection{Member Data Documentation}
@@ -36,19 +56,19 @@ bool Edge\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{s
 {\footnotesize\ttfamily \label{struct_edge_a90fd2eb3e47e39061ce7cd84694657cc} 
 std\+::string Edge\+::dest}
 
-\Hypertarget{struct_edge_ad8735e8edb11d430dc8bf3f9c9905010}\index{Edge@{Edge}!drivingTime@{drivingTime}}
+The destination node code. \Hypertarget{struct_edge_ad8735e8edb11d430dc8bf3f9c9905010}\index{Edge@{Edge}!drivingTime@{drivingTime}}
 \index{drivingTime@{drivingTime}!Edge@{Edge}}
 \doxysubsubsection{\texorpdfstring{drivingTime}{drivingTime}}
 {\footnotesize\ttfamily \label{struct_edge_ad8735e8edb11d430dc8bf3f9c9905010} 
 int Edge\+::driving\+Time}
 
-\Hypertarget{struct_edge_a8ad2188a090eba839334279cdd55c73f}\index{Edge@{Edge}!walkingTime@{walkingTime}}
+The travel time by driving in minutes. \Hypertarget{struct_edge_a8ad2188a090eba839334279cdd55c73f}\index{Edge@{Edge}!walkingTime@{walkingTime}}
 \index{walkingTime@{walkingTime}!Edge@{Edge}}
 \doxysubsubsection{\texorpdfstring{walkingTime}{walkingTime}}
 {\footnotesize\ttfamily \label{struct_edge_a8ad2188a090eba839334279cdd55c73f} 
 int Edge\+::walking\+Time}
 
-
+The travel time by walking in minutes. 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

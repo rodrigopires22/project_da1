@@ -10,13 +10,13 @@
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{main_8cpp_aba5bd9067aa6f261123165a337c7957d}{show\+Menu}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Displays the main menu for the urban route planner application. \end{DoxyCompactList}\item 
 string \mbox{\hyperlink{main_8cpp_a29cca3bc44721ce6903b4590b53a0bc2}{extract\+Value}} (const string \&line)
-\item 
+\begin{DoxyCompactList}\small\item\em Extracts the value after the first colon (\+:) in a string and trims whitespace. \end{DoxyCompactList}\item 
 set$<$ pair$<$ string, string $>$ $>$ \mbox{\hyperlink{main_8cpp_a5008f75d31dedf13d251b75f82fb73b0}{parse\+Avoid\+Segments}} (const string \&segment\+Str, \mbox{\hyperlink{class_graph}{Graph}} \&graph)
-\item 
+\begin{DoxyCompactList}\small\item\em Parses a string representation of segments to avoid and converts them to codes using a graph. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{main_8cpp_afee73028ba942245003910a8f1ba92b9}{process\+Batch\+File}} (\mbox{\hyperlink{class_graph}{Graph}} \&graph, const string \&filename\+In, const string \&filename\+Out)
-\item 
+\begin{DoxyCompactList}\small\item\em Processes a batch file to execute route planning tasks based on specified modes and constraints. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
 \end{DoxyCompactItemize}
 
@@ -28,7 +28,23 @@ int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
 {\footnotesize\ttfamily \label{main_8cpp_a29cca3bc44721ce6903b4590b53a0bc2} 
 string extract\+Value (\begin{DoxyParamCaption}\item[{const string \&}]{line}{}\end{DoxyParamCaption})}
 
-\Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{main.cpp@{main.cpp}!main@{main}}
+
+
+Extracts the value after the first colon (\+:) in a string and trims whitespace. 
+
+This function parses a given string to retrieve the content following the first colon (\+:). It also removes leading and trailing whitespace, including spaces, tabs, carriage returns, and newline characters.
+
+
+\begin{DoxyParams}{Parameters}
+{\em line} & The input string from which the value is to be extracted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string containing the value after the first colon (\+:), with whitespace removed. If no colon is found, an empty string is returned.
+\end{DoxyReturn}
+The function uses {\ttfamily std\+::string\+::find} to locate the colon, and {\ttfamily std\+::string\+::substr} to extract the value. Leading and trailing whitespace are removed using {\ttfamily std\+::string\+::erase} and {\ttfamily std\+::string\+::find\+\_\+first\+\_\+not\+\_\+of}/{\ttfamily std\+::string\+::find\+\_\+last\+\_\+not\+\_\+of}.
+
+Timecomplexity O(n), where n is the length of the input string. This accounts for the search for the colon and trimming operations. \Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{main.cpp@{main.cpp}!main@{main}}
 \index{main@{main}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily \label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
@@ -40,15 +56,76 @@ int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 {\footnotesize\ttfamily \label{main_8cpp_a5008f75d31dedf13d251b75f82fb73b0} 
 set$<$ pair$<$ string, string $>$ $>$ parse\+Avoid\+Segments (\begin{DoxyParamCaption}\item[{const string \&}]{segment\+Str}{, }\item[{\mbox{\hyperlink{class_graph}{Graph}} \&}]{graph}{}\end{DoxyParamCaption})}
 
-\Hypertarget{main_8cpp_afee73028ba942245003910a8f1ba92b9}\index{main.cpp@{main.cpp}!processBatchFile@{processBatchFile}}
+
+
+Parses a string representation of segments to avoid and converts them to codes using a graph. 
+
+This function processes a string of segments in the format "{}(id1,id2)"{}, extracts valid segments, and maps their IDs to codes using the provided graph. Invalid or improperly formatted segments are skipped.
+
+
+\begin{DoxyParams}{Parameters}
+{\em segment\+Str} & The input string containing segments in the format "{}(id1,id2)"{}, separated by closing parentheses. \\
+\hline
+{\em graph} & The graph instance used to convert IDs to codes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A set of pairs representing the segments to avoid. Each pair contains two location codes corresponding to the IDs in the input string.
+\end{DoxyReturn}
+The function splits the input string into individual segments, validates each segment, and uses the {\ttfamily get\+Code\+From\+Id} method of the {\ttfamily \doxylink{class_graph}{Graph}} class to retrieve codes for the given IDs. Only segments with valid codes are added to the resulting set.
+
+Timecomplexity O(m \texorpdfstring{$\ast$}{*} n), where\+:
+\begin{DoxyItemize}
+\item m is the number of segments in the input string.
+\item n is the average complexity of the {\ttfamily get\+Code\+From\+Id} function, which is typically O(1) for an unordered map lookup. 
+\end{DoxyItemize}\Hypertarget{main_8cpp_afee73028ba942245003910a8f1ba92b9}\index{main.cpp@{main.cpp}!processBatchFile@{processBatchFile}}
 \index{processBatchFile@{processBatchFile}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{processBatchFile()}{processBatchFile()}}
 {\footnotesize\ttfamily \label{main_8cpp_afee73028ba942245003910a8f1ba92b9} 
 void process\+Batch\+File (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \&}]{graph}{, }\item[{const string \&}]{filename\+In}{, }\item[{const string \&}]{filename\+Out}{}\end{DoxyParamCaption})}
 
-\Hypertarget{main_8cpp_aba5bd9067aa6f261123165a337c7957d}\index{main.cpp@{main.cpp}!showMenu@{showMenu}}
+
+
+Processes a batch file to execute route planning tasks based on specified modes and constraints. 
+
+This function reads a file containing route planning requests, parses the data, and generates the corresponding results. The results are written to an output file. Supported modes include driving, walking, driving-\/restricted, and driving-\/walking.
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & The graph instance used for route calculations. \\
+\hline
+{\em filename\+In} & The name of the input file containing route requests. \\
+\hline
+{\em filename\+Out} & The name of the output file where results are written.\\
+\hline
+\end{DoxyParams}
+The function reads the input file line by line and processes requests based on the specified mode\+:
+\begin{DoxyItemize}
+\item "{}driving"{} or "{}walking"{}\+: Calculates the best and alternative routes.
+\item "{}driving-\/restricted"{}\+: Computes routes with specific nodes and segments to avoid and an optional node to include.
+\item "{}driving-\/walking"{}\+: Finds environmentally friendly routes with a maximum walking time and suggests alternatives if no route is found. For invalid requests, an appropriate error message is written to the output file.
+\end{DoxyItemize}
+
+Timecomplexity O(\+T), where T is the total number of requests in the input file. Each request involves graph operations such as route finding and parsing, which depend on the complexity of the {\ttfamily \doxylink{class_graph}{Graph}} methods invoked. \Hypertarget{main_8cpp_aba5bd9067aa6f261123165a337c7957d}\index{main.cpp@{main.cpp}!showMenu@{showMenu}}
 \index{showMenu@{showMenu}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{showMenu()}{showMenu()}}
 {\footnotesize\ttfamily \label{main_8cpp_aba5bd9067aa6f261123165a337c7957d} 
 void show\+Menu (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
+
+
+Displays the main menu for the urban route planner application. 
+
+This function outputs a formatted menu with options for the user to choose from. It provides various route planning features, including environmentally-\/friendly routes and restricted routes.
+
+Menu options\+:
+\begin{DoxyItemize}
+\item Option 1\+: Find the best route and independent alternative route.
+\item Option 2\+: Plan a route with restrictions.
+\item Option 3\+: Plan a sustainable route.
+\item Option 4\+: Exit the application.
+\end{DoxyItemize}
+
+The function uses standard output ({\ttfamily cout}) to display a menu with separators and prompts the user to choose an option. It is primarily used as the starting point for user interactions within the application.
+
+Timecomplexity O(1), as it involves only printing operations to standard output. 

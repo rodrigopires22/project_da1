@@ -117,12 +117,16 @@ $(function(){initNavTree('main_8cpp.html',''); initResizable(true); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aba5bd9067aa6f261123165a337c7957d" id="r_aba5bd9067aa6f261123165a337c7957d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba5bd9067aa6f261123165a337c7957d">showMenu</a> ()</td></tr>
+<tr class="memdesc:aba5bd9067aa6f261123165a337c7957d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the main menu for the urban route planner application.  <br /></td></tr>
 <tr class="separator:aba5bd9067aa6f261123165a337c7957d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29cca3bc44721ce6903b4590b53a0bc2" id="r_a29cca3bc44721ce6903b4590b53a0bc2"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29cca3bc44721ce6903b4590b53a0bc2">extractValue</a> (const string &amp;line)</td></tr>
+<tr class="memdesc:a29cca3bc44721ce6903b4590b53a0bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the value after the first colon (:) in a string and trims whitespace.  <br /></td></tr>
 <tr class="separator:a29cca3bc44721ce6903b4590b53a0bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5008f75d31dedf13d251b75f82fb73b0" id="r_a5008f75d31dedf13d251b75f82fb73b0"><td class="memItemLeft" align="right" valign="top">set&lt; pair&lt; string, string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5008f75d31dedf13d251b75f82fb73b0">parseAvoidSegments</a> (const string &amp;segmentStr, <a class="el" href="class_graph.html">Graph</a> &amp;graph)</td></tr>
+<tr class="memdesc:a5008f75d31dedf13d251b75f82fb73b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a string representation of segments to avoid and converts them to codes using a graph.  <br /></td></tr>
 <tr class="separator:a5008f75d31dedf13d251b75f82fb73b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afee73028ba942245003910a8f1ba92b9" id="r_afee73028ba942245003910a8f1ba92b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afee73028ba942245003910a8f1ba92b9">processBatchFile</a> (<a class="el" href="class_graph.html">Graph</a> &amp;graph, const string &amp;filenameIn, const string &amp;filenameOut)</td></tr>
+<tr class="memdesc:afee73028ba942245003910a8f1ba92b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes a batch file to execute route planning tasks based on specified modes and constraints.  <br /></td></tr>
 <tr class="separator:afee73028ba942245003910a8f1ba92b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,6 +146,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Extracts the value after the first colon (:) in a string and trims whitespace. </p>
+<p>This function parses a given string to retrieve the content following the first colon (:). It also removes leading and trailing whitespace, including spaces, tabs, carriage returns, and newline characters.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">line</td><td>The input string from which the value is to be extracted. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A string containing the value after the first colon (:), with whitespace removed. If no colon is found, an empty string is returned.</dd></dl>
+<p>The function uses <code>std::string::find</code> to locate the colon, and <code>std::string::substr</code> to extract the value. Leading and trailing whitespace are removed using <code>std::string::erase</code> and <code>std::string::find_first_not_of</code>/<code>std::string::find_last_not_of</code>.</p>
+<p>Timecomplexity O(n), where n is the length of the input string. This accounts for the search for the colon and trimming operations. </p>
 
 </div>
 </div>
@@ -181,6 +197,22 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Parses a string representation of segments to avoid and converts them to codes using a graph. </p>
+<p>This function processes a string of segments in the format "(id1,id2)", extracts valid segments, and maps their IDs to codes using the provided graph. Invalid or improperly formatted segments are skipped.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">segmentStr</td><td>The input string containing segments in the format "(id1,id2)", separated by closing parentheses. </td></tr>
+    <tr><td class="paramname">graph</td><td>The graph instance used to convert IDs to codes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A set of pairs representing the segments to avoid. Each pair contains two location codes corresponding to the IDs in the input string.</dd></dl>
+<p>The function splits the input string into individual segments, validates each segment, and uses the <code>getCodeFromId</code> method of the <code><a class="el" href="class_graph.html" title="A class representing a graph structure for route planning.">Graph</a></code> class to retrieve codes for the given IDs. Only segments with valid codes are added to the resulting set.</p>
+<p>Timecomplexity O(m * n), where:</p><ul>
+<li>m is the number of segments in the input string.</li>
+<li>n is the average complexity of the <code>getCodeFromId</code> function, which is typically O(1) for an unordered map lookup. </li>
+</ul>
+
 </div>
 </div>
 <a id="afee73028ba942245003910a8f1ba92b9" name="afee73028ba942245003910a8f1ba92b9"></a>
@@ -207,6 +239,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Processes a batch file to execute route planning tasks based on specified modes and constraints. </p>
+<p>This function reads a file containing route planning requests, parses the data, and generates the corresponding results. The results are written to an output file. Supported modes include driving, walking, driving-restricted, and driving-walking.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The graph instance used for route calculations. </td></tr>
+    <tr><td class="paramname">filenameIn</td><td>The name of the input file containing route requests. </td></tr>
+    <tr><td class="paramname">filenameOut</td><td>The name of the output file where results are written.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>The function reads the input file line by line and processes requests based on the specified mode:</p><ul>
+<li>"driving" or "walking": Calculates the best and alternative routes.</li>
+<li>"driving-restricted": Computes routes with specific nodes and segments to avoid and an optional node to include.</li>
+<li>"driving-walking": Finds environmentally friendly routes with a maximum walking time and suggests alternatives if no route is found. For invalid requests, an appropriate error message is written to the output file.</li>
+</ul>
+<p>Timecomplexity O(T), where T is the total number of requests in the input file. Each request involves graph operations such as route finding and parsing, which depend on the complexity of the <code><a class="el" href="class_graph.html" title="A class representing a graph structure for route planning.">Graph</a></code> methods invoked. </p>
+
 </div>
 </div>
 <a id="aba5bd9067aa6f261123165a337c7957d" name="aba5bd9067aa6f261123165a337c7957d"></a>
@@ -223,6 +272,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Displays the main menu for the urban route planner application. </p>
+<p>This function outputs a formatted menu with options for the user to choose from. It provides various route planning features, including environmentally-friendly routes and restricted routes.</p>
+<p>Menu options:</p><ul>
+<li>Option 1: Find the best route and independent alternative route.</li>
+<li>Option 2: Plan a route with restrictions.</li>
+<li>Option 3: Plan a sustainable route.</li>
+<li>Option 4: Exit the application.</li>
+</ul>
+<p>The function uses standard output (<code>cout</code>) to display a menu with separators and prompts the user to choose an option. It is primarily used as the starting point for user interactions within the application.</p>
+<p>Timecomplexity O(1), as it involves only printing operations to standard output. </p>
 
 </div>
 </div>

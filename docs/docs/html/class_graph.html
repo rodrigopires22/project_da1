@@ -111,45 +111,60 @@ $(function(){initNavTree('class_graph.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 
+<p>A class representing a graph structure for route planning.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="graph_8h_source.html">graph.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0b83eac5c4f2d6ecbcec3ffc2e70863d" id="r_a0b83eac5c4f2d6ecbcec3ffc2e70863d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b83eac5c4f2d6ecbcec3ffc2e70863d">loadLocations</a> (const std::string &amp;filename)</td></tr>
-<tr class="memdesc:a0b83eac5c4f2d6ecbcec3ffc2e70863d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads locations from a CSV file and updates the graph.  <br /></td></tr>
+<tr class="memdesc:a0b83eac5c4f2d6ecbcec3ffc2e70863d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads location data from a file.  <br /></td></tr>
 <tr class="separator:a0b83eac5c4f2d6ecbcec3ffc2e70863d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8707a00ead8fb838a591f21300785dcf" id="r_a8707a00ead8fb838a591f21300785dcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8707a00ead8fb838a591f21300785dcf">loadDistances</a> (const std::string &amp;filename)</td></tr>
-<tr class="memdesc:a8707a00ead8fb838a591f21300785dcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads distances between locations from a CSV file and updates the graph.  <br /></td></tr>
+<tr class="memdesc:a8707a00ead8fb838a591f21300785dcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads distance data from a file.  <br /></td></tr>
 <tr class="separator:a8707a00ead8fb838a591f21300785dcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc68ceaae5b44fc5465eafc854ad141e" id="r_acc68ceaae5b44fc5465eafc854ad141e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc68ceaae5b44fc5465eafc854ad141e">displayGraph</a> ()</td></tr>
-<tr class="memdesc:acc68ceaae5b44fc5465eafc854ad141e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the graph's nodes and their connections.  <br /></td></tr>
+<tr class="memdesc:acc68ceaae5b44fc5465eafc854ad141e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the graph's nodes and edges.  <br /></td></tr>
 <tr class="separator:acc68ceaae5b44fc5465eafc854ad141e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d408175cbbb266799890986d9ce45a4" id="r_a4d408175cbbb266799890986d9ce45a4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d408175cbbb266799890986d9ce45a4">getCodeFromId</a> (const std::string &amp;id)</td></tr>
-<tr class="memdesc:a4d408175cbbb266799890986d9ce45a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the location code corresponding to a given ID.  <br /></td></tr>
+<tr class="memdesc:a4d408175cbbb266799890986d9ce45a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the code associated with a given ID.  <br /></td></tr>
 <tr class="separator:a4d408175cbbb266799890986d9ce45a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9cdda3850c172ca13d4fd7b544f05b1" id="r_ab9cdda3850c172ca13d4fd7b544f05b1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9cdda3850c172ca13d4fd7b544f05b1">getIdFromCode</a> (const std::string &amp;code)</td></tr>
+<tr class="memdesc:ab9cdda3850c172ca13d4fd7b544f05b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the unique ID associated with a given code.  <br /></td></tr>
+<tr class="separator:ab9cdda3850c172ca13d4fd7b544f05b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3e9f89263bd3eb545f62d2e6ad926f3" id="r_aa3e9f89263bd3eb545f62d2e6ad926f3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3e9f89263bd3eb545f62d2e6ad926f3">convertCodesToIds</a> (const std::vector&lt; std::string &gt; &amp;route)</td></tr>
-<tr class="memdesc:aa3e9f89263bd3eb545f62d2e6ad926f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts location codes to their corresponding IDs.  <br /></td></tr>
+<tr class="memdesc:aa3e9f89263bd3eb545f62d2e6ad926f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a route from codes to IDs.  <br /></td></tr>
 <tr class="separator:aa3e9f89263bd3eb545f62d2e6ad926f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70924dca9907a7fa8aab25f1e83c8ed1" id="r_a70924dca9907a7fa8aab25f1e83c8ed1"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; std::vector&lt; std::string &gt;, std::vector&lt; std::string &gt;, int, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70924dca9907a7fa8aab25f1e83c8ed1">findRoutes</a> (const std::string &amp;source, const std::string &amp;dest, const std::string &amp;mode)</td></tr>
-<tr class="memdesc:a70924dca9907a7fa8aab25f1e83c8ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the best and alternative routes between two locations.  <br /></td></tr>
+<tr class="memdesc:a70924dca9907a7fa8aab25f1e83c8ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds routes between a source and destination for a given mode of transportation.  <br /></td></tr>
 <tr class="separator:a70924dca9907a7fa8aab25f1e83c8ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14aebc2ae0ed2a5f01512bac7b3ca1d9" id="r_a14aebc2ae0ed2a5f01512bac7b3ca1d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14aebc2ae0ed2a5f01512bac7b3ca1d9">displayRoutes</a> (const std::vector&lt; std::string &gt; &amp;route, int totalTime, const std::string &amp;type, std::ostream &amp;output)</td></tr>
-<tr class="memdesc:a14aebc2ae0ed2a5f01512bac7b3ca1d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays a route and its total travel time in a formatted manner.  <br /></td></tr>
+<tr class="memdesc:a14aebc2ae0ed2a5f01512bac7b3ca1d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays routes and their details.  <br /></td></tr>
 <tr class="separator:a14aebc2ae0ed2a5f01512bac7b3ca1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0346de219ec9a4920255a893b394ee6" id="r_af0346de219ec9a4920255a893b394ee6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0346de219ec9a4920255a893b394ee6">getRouteTime</a> (const std::vector&lt; std::string &gt; &amp;route, const std::string &amp;mode)</td></tr>
-<tr class="memdesc:af0346de219ec9a4920255a893b394ee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the total travel time for a given route.  <br /></td></tr>
+<tr class="memdesc:af0346de219ec9a4920255a893b394ee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the total time for a given route and mode of transportation.  <br /></td></tr>
 <tr class="separator:af0346de219ec9a4920255a893b394ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70d6da304dabfd6ea258cc741f137fbe" id="r_a70d6da304dabfd6ea258cc741f137fbe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70d6da304dabfd6ea258cc741f137fbe">printEdgesFrom</a> (const std::string &amp;id)</td></tr>
-<tr class="memdesc:a70d6da304dabfd6ea258cc741f137fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints all edges originating from a specific node.  <br /></td></tr>
+<tr class="memdesc:a70d6da304dabfd6ea258cc741f137fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the edges originating from a specified node.  <br /></td></tr>
 <tr class="separator:a70d6da304dabfd6ea258cc741f137fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07d3ea1a6fe53617bd6ceb6463f1aec8" id="r_a07d3ea1a6fe53617bd6ceb6463f1aec8"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::vector&lt; std::string &gt;, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a07d3ea1a6fe53617bd6ceb6463f1aec8">findRestrictedRoute</a> (const std::string &amp;source, const std::string &amp;dest, const std::string &amp;mode, const std::unordered_set&lt; std::string &gt; &amp;avoidNodes, const std::set&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp;avoidSegments, const std::string &amp;includeNode)</td></tr>
-<tr class="memdesc:a07d3ea1a6fe53617bd6ceb6463f1aec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a route between two locations with restrictions.  <br /></td></tr>
+<tr class="memdesc:a07d3ea1a6fe53617bd6ceb6463f1aec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a route between two locations with specific restrictions.  <br /></td></tr>
 <tr class="separator:a07d3ea1a6fe53617bd6ceb6463f1aec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fa0ad610cbfdcc55451251ff6226afa" id="r_a1fa0ad610cbfdcc55451251ff6226afa"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; std::vector&lt; std::string &gt;, int, std::vector&lt; std::string &gt;, int, std::vector&lt; std::string &gt;, int, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1fa0ad610cbfdcc55451251ff6226afa">findEnvironmentallyFriendlyRoute</a> (const std::string &amp;source, const std::string &amp;dest, int maxWalkingTime, const std::unordered_set&lt; std::string &gt; &amp;avoidNodes, const std::set&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp;avoidSegments)</td></tr>
+<tr class="memdesc:a1fa0ad610cbfdcc55451251ff6226afa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the most environmentally friendly route between two locations.  <br /></td></tr>
+<tr class="separator:a1fa0ad610cbfdcc55451251ff6226afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af498c1029a788f28730f664a4f5c7ed7" id="r_af498c1029a788f28730f664a4f5c7ed7"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::vector&lt; std::string &gt;, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af498c1029a788f28730f664a4f5c7ed7">findSustainableRouteWithoutParking</a> (const std::string &amp;source, const std::string &amp;dest, const std::unordered_set&lt; std::string &gt; &amp;avoidNodes, const std::set&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp;avoidSegments)</td></tr>
+<tr class="memdesc:af498c1029a788f28730f664a4f5c7ed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a sustainable route between two locations without considering parking.  <br /></td></tr>
+<tr class="separator:af498c1029a788f28730f664a4f5c7ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc78415900f1fb2eed503ee61a0a71f4" id="r_acc78415900f1fb2eed503ee61a0a71f4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::tuple&lt; std::vector&lt; std::string &gt;, int, std::vector&lt; std::string &gt;, int, std::vector&lt; std::string &gt;, int, std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc78415900f1fb2eed503ee61a0a71f4">findTopEnvironmentallyFriendlyRoutes</a> (const std::string &amp;source, const std::string &amp;dest, int maxWalkingTime, const std::unordered_set&lt; std::string &gt; &amp;avoidNodes, const std::set&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp;avoidSegments, int maxResults)</td></tr>
+<tr class="memdesc:acc78415900f1fb2eed503ee61a0a71f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the top environmentally friendly routes between two locations.  <br /></td></tr>
+<tr class="separator:acc78415900f1fb2eed503ee61a0a71f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a1bf52b23579a960a4e66aa805546ace9" id="r_a1bf52b23579a960a4e66aa805546ace9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1bf52b23579a960a4e66aa805546ace9">dijkstra</a> (const std::string &amp;source, const std::string &amp;dest, const std::string &amp;mode)</td></tr>
-<tr class="memdesc:a1bf52b23579a960a4e66aa805546ace9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the shortest path between two locations using Dijkstra's algorithm.  <br /></td></tr>
+<tr class="memdesc:a1bf52b23579a960a4e66aa805546ace9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements Dijkstra's algorithm for shortest path calculation.  <br /></td></tr>
 <tr class="separator:a1bf52b23579a960a4e66aa805546ace9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -161,7 +176,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ad225bc93d6a04db0208c2ce725eebbc1" id="r_ad225bc93d6a04db0208c2ce725eebbc1"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad225bc93d6a04db0208c2ce725eebbc1">codeToId</a></td></tr>
 <tr class="separator:ad225bc93d6a04db0208c2ce725eebbc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class representing a graph structure for route planning. </p>
+<p>The <a class="el" href="class_graph.html" title="A class representing a graph structure for route planning.">Graph</a> class provides methods for loading data, finding routes, and managing node and edge details. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa3e9f89263bd3eb545f62d2e6ad926f3" name="aa3e9f89263bd3eb545f62d2e6ad926f3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa3e9f89263bd3eb545f62d2e6ad926f3">&#9670;&#160;</a></span>convertCodesToIds()</h2>
 
@@ -177,7 +195,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Converts location codes to their corresponding IDs. </p>
+<p>Converts a route from codes to IDs. </p>
+<p>Converts location codes to their corresponding IDs.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">route</td><td>A vector of location codes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of corresponding location IDs.</dd></dl>
 <p>This function takes a vector of location codes and converts them into their corresponding IDs using the <code>codeToId</code> mapping.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -223,7 +249,17 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Computes the shortest path between two locations using Dijkstra's algorithm. </p>
+<p>Implements Dijkstra's algorithm for shortest path calculation. </p>
+<p>Computes the shortest path between two locations using Dijkstra's algorithm.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The starting node. </td></tr>
+    <tr><td class="paramname">dest</td><td>The destination node. </td></tr>
+    <tr><td class="paramname">mode</td><td>The mode of transportation ("driving" or "walking"). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of strings representing the shortest path between source and destination.</dd></dl>
 <p>This function implements Dijkstra's algorithm to find the shortest path between a source and destination node in the graph, based on the selected mode of transportation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -254,7 +290,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Displays the graph's nodes and their connections. </p>
+<p>Displays the graph's nodes and edges. </p>
+<p>Displays the graph's nodes and their connections.</p>
 <p>This function prints the details of all nodes in the graph, including their parking availability and adjacency list connections. For each edge, the driving and walking times are displayed.</p>
 <p>Each node's code and parking availability are printed, followed by its connections to other nodes with the respective driving and walking times. The graph structure is displayed in a human-readable format.</p>
 <p>The time complexity is O(n + m), where n is the number of nodes and m is the number of edges in the graph, as every node and its connections are iterated over once. </p>
@@ -290,7 +327,17 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Displays a route and its total travel time in a formatted manner. </p>
+<p>Displays routes and their details. </p>
+<p>Displays a route and its total travel time in a formatted manner.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">route</td><td>A vector of strings representing the route. </td></tr>
+    <tr><td class="paramname">totalTime</td><td>The total time for the route. </td></tr>
+    <tr><td class="paramname">type</td><td>The type of route ("driving" or "walking"). </td></tr>
+    <tr><td class="paramname">output</td><td>The output stream to display the route details.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>This function prints the details of a given route to the specified output stream. It includes the type of route (e.g., best or alternative), the sequence of locations in the route, and the total travel time if available.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -303,6 +350,92 @@ Private Attributes</h2></td></tr>
 </dl>
 <p>The function handles cases where the route is empty by printing "none". For valid routes, it formats the location IDs with commas between them, followed by the total travel time enclosed in parentheses. If the total time is set to std::numeric_limits&lt;int&gt;::max(), "none" is printed for the time.</p>
 <p>The time complexity is O(n), where n is the number of locations in the route, as each location ID is processed once. </p>
+
+</div>
+</div>
+<a id="a1fa0ad610cbfdcc55451251ff6226afa" name="a1fa0ad610cbfdcc55451251ff6226afa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fa0ad610cbfdcc55451251ff6226afa">&#9670;&#160;</a></span>findEnvironmentallyFriendlyRoute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::tuple&lt; std::vector&lt; std::string &gt;, int, std::vector&lt; std::string &gt;, int, std::vector&lt; std::string &gt;, int, std::string &gt; Graph::findEnvironmentallyFriendlyRoute </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>source</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxWalkingTime</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_set&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>avoidNodes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::set&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>avoidSegments</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds the most environmentally friendly route between two locations. </p>
+<p>Finds the most environmentally friendly route between a source and a destination, considering both driving and walking segments.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The starting location. </td></tr>
+    <tr><td class="paramname">dest</td><td>The destination location. </td></tr>
+    <tr><td class="paramname">maxWalkingTime</td><td>The maximum allowable walking time (in minutes). </td></tr>
+    <tr><td class="paramname">avoidNodes</td><td>A set of nodes to avoid. </td></tr>
+    <tr><td class="paramname">avoidSegments</td><td>A set of edges (pairs of nodes) to avoid. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A tuple containing:<ul>
+<li>The best route (vector of strings).</li>
+<li>The total time.</li>
+<li>The best driving route.</li>
+<li>Driving time.</li>
+<li>The best walking route.</li>
+<li>Walking time.</li>
+<li>The best parking node.</li>
+</ul>
+</dd></dl>
+<p>This function calculates the optimal route by combining driving and walking routes, minimizing the total travel time while respecting the maximum allowed walking time. It avoids specified nodes and segments and identifies the best parking node to balance driving and walking.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The starting node for the journey. </td></tr>
+    <tr><td class="paramname">dest</td><td>The destination node for the journey. </td></tr>
+    <tr><td class="paramname">maxWalkingTime</td><td>The maximum allowed walking time (in minutes). </td></tr>
+    <tr><td class="paramname">avoidNodes</td><td>A set of nodes that must be excluded from the journey. </td></tr>
+    <tr><td class="paramname">avoidSegments</td><td>A set of segments (pairs of nodes) that must be excluded from the journey. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A tuple containing:<ul>
+<li>A vector of strings representing the best route (combined driving and walking).</li>
+<li>An integer indicating the total travel time (in minutes) for the best route.</li>
+<li>A vector of strings representing the best driving route.</li>
+<li>An integer indicating the total driving time (in minutes).</li>
+<li>A vector of strings representing the best walking route.</li>
+<li>An integer indicating the total walking time (in minutes).</li>
+<li>A string representing the best parking node selected.</li>
+</ul>
+</dd></dl>
+<p>The function assumes that the <code>findRestrictedRoute</code> method is used to calculate both driving and walking routes, and it excludes invalid routes or those exceeding the maximum allowed walking time. It iterates over available parking nodes, evaluates potential routes, and selects the most suitable one based on total travel time and walking preferences.</p>
+<p>The time complexity is O(N * (D + W)), where:</p><ul>
+<li>N is the number of parking nodes.</li>
+<li>D is the time complexity of finding a driving route using <code>findRestrictedRoute</code>.</li>
+<li>W is the time complexity of finding a walking route using <code>findRestrictedRoute</code>. The function evaluates all parking nodes and computes both driving and walking routes for each node. </li>
+</ul>
 
 </div>
 </div>
@@ -345,7 +478,20 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Finds a route between two locations with restrictions. </p>
+<p>Finds a route between two locations with specific restrictions. </p>
+<p>Finds a route between two locations with restrictions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The starting location. </td></tr>
+    <tr><td class="paramname">dest</td><td>The destination location. </td></tr>
+    <tr><td class="paramname">mode</td><td>The mode of transportation ("driving" or "walking"). </td></tr>
+    <tr><td class="paramname">avoidNodes</td><td>A set of nodes to avoid. </td></tr>
+    <tr><td class="paramname">avoidSegments</td><td>A set of edges (pairs of nodes) to avoid. </td></tr>
+    <tr><td class="paramname">includeNode</td><td>An optional node that must be included in the route. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pair containing the route and its total time.</dd></dl>
 <p>This function calculates the shortest path between a source and destination while considering various restrictions such as nodes to avoid, segments to avoid, and an optional mandatory node to include in the route.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -392,7 +538,23 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Finds the best and alternative routes between two locations. </p>
+<p>Finds routes between a source and destination for a given mode of transportation. </p>
+<p>Finds the best and alternative routes between two locations.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The starting node. </td></tr>
+    <tr><td class="paramname">dest</td><td>The destination node. </td></tr>
+    <tr><td class="paramname">mode</td><td>The mode of transportation ("driving" or "walking"). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A tuple containing:<ul>
+<li>A vector of strings for the full route.</li>
+<li>A vector of strings for the walking portion of the route.</li>
+<li>An integer representing the total time.</li>
+<li>An integer representing the walking time.</li>
+</ul>
+</dd></dl>
 <p>This function calculates the shortest path (best route) using Dijkstra's algorithm and attempts to find an alternative route by temporarily removing edges from the best route and re-running Dijkstra's algorithm.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -414,6 +576,159 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="af498c1029a788f28730f664a4f5c7ed7" name="af498c1029a788f28730f664a4f5c7ed7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af498c1029a788f28730f664a4f5c7ed7">&#9670;&#160;</a></span>findSustainableRouteWithoutParking()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; std::vector&lt; std::string &gt;, int &gt; Graph::findSustainableRouteWithoutParking </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>source</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_set&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>avoidNodes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::set&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>avoidSegments</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds a sustainable route between two locations without considering parking. </p>
+<p>Finds a sustainable route between two locations without considering parking nodes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The starting location. </td></tr>
+    <tr><td class="paramname">dest</td><td>The destination location. </td></tr>
+    <tr><td class="paramname">avoidNodes</td><td>A set of nodes to avoid. </td></tr>
+    <tr><td class="paramname">avoidSegments</td><td>A set of edges (pairs of nodes) to avoid. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pair containing:<ul>
+<li>The route as a vector of strings.</li>
+<li>The total time.</li>
+</ul>
+</dd></dl>
+<p>This function calculates the shortest path between a source and a destination while avoiding specified nodes and segments. It ensures that neither the source nor the destination involves parking nodes, and it uses a modified Dijkstra's algorithm for route computation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The starting location code. </td></tr>
+    <tr><td class="paramname">dest</td><td>The destination location code. </td></tr>
+    <tr><td class="paramname">avoidNodes</td><td>A set of nodes to be avoided during the journey. </td></tr>
+    <tr><td class="paramname">avoidSegments</td><td>A set of segments (pairs of nodes) to be avoided during the journey. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pair containing:<ul>
+<li>A vector of strings representing the calculated route (node IDs).</li>
+<li>An integer indicating the total travel time for the route.</li>
+</ul>
+</dd></dl>
+<p>The function utilizes a lambda (<code>runDijkstra</code>) to execute a Dijkstra's algorithm variant. It iterates through all nodes in the graph, updating distances and paths while applying the given constraints. If the source or destination is invalid (e.g., involves parking or belongs to the avoided nodes), an empty path and infinite time are returned. The resulting path is reversed and converted to node IDs before being returned.</p>
+<p>The time complexity is O((V + E) log V), where:</p><ul>
+<li>V is the number of nodes in the graph.</li>
+<li>E is the number of edges in the graph. This complexity arises from the use of Dijkstra's algorithm with a priority queue for graph traversal and pathfinding. </li>
+</ul>
+
+</div>
+</div>
+<a id="acc78415900f1fb2eed503ee61a0a71f4" name="acc78415900f1fb2eed503ee61a0a71f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc78415900f1fb2eed503ee61a0a71f4">&#9670;&#160;</a></span>findTopEnvironmentallyFriendlyRoutes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::tuple&lt; std::vector&lt; std::string &gt;, int, std::vector&lt; std::string &gt;, int, std::vector&lt; std::string &gt;, int, std::string &gt; &gt; Graph::findTopEnvironmentallyFriendlyRoutes </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>source</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxWalkingTime</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_set&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>avoidNodes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::set&lt; std::pair&lt; std::string, std::string &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>avoidSegments</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxResults</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds the top environmentally friendly routes between two locations. </p>
+<p>Finds a sustainable route between two locations without considering parking nodes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The starting location. </td></tr>
+    <tr><td class="paramname">dest</td><td>The destination location. </td></tr>
+    <tr><td class="paramname">maxWalkingTime</td><td>The maximum allowable walking time (in minutes). </td></tr>
+    <tr><td class="paramname">avoidNodes</td><td>A set of nodes to avoid. </td></tr>
+    <tr><td class="paramname">avoidSegments</td><td>A set of edges (pairs of nodes) to avoid. </td></tr>
+    <tr><td class="paramname">maxResults</td><td>The maximum number of results to return. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of tuples, each containing:<ul>
+<li>The best route (vector of strings).</li>
+<li>The total time.</li>
+<li>The best driving route.</li>
+<li>Driving time.</li>
+<li>The best walking route.</li>
+<li>Walking time.</li>
+<li>The best parking node.</li>
+</ul>
+</dd></dl>
+<p>This function calculates the shortest path between a source and a destination while avoiding specified nodes and segments. It ensures that neither the source nor the destination involves parking nodes, and it uses a modified Dijkstra's algorithm for route computation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The starting location code. </td></tr>
+    <tr><td class="paramname">dest</td><td>The destination location code. </td></tr>
+    <tr><td class="paramname">avoidNodes</td><td>A set of nodes to be avoided during the journey. </td></tr>
+    <tr><td class="paramname">avoidSegments</td><td>A set of segments (pairs of nodes) to be avoided during the journey. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pair containing:<ul>
+<li>A vector of strings representing the calculated route (node IDs).</li>
+<li>An integer indicating the total travel time for the route.</li>
+</ul>
+</dd></dl>
+<p>The function utilizes a lambda (<code>runDijkstra</code>) to execute a Dijkstra's algorithm variant. It iterates through all nodes in the graph, updating distances and paths while applying the given constraints. If the source or destination is invalid (e.g., involves parking or belongs to the avoided nodes), an empty path and infinite time are returned. The resulting path is reversed and converted to node IDs before being returned.</p>
+<p>The time complexity is O((V + E) log V), where:</p><ul>
+<li>V is the number of nodes in the graph.</li>
+<li>E is the number of edges in the graph. This complexity arises from the use of Dijkstra's algorithm with a priority queue. </li>
+</ul>
+
+</div>
+</div>
 <a id="a4d408175cbbb266799890986d9ce45a4" name="a4d408175cbbb266799890986d9ce45a4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d408175cbbb266799890986d9ce45a4">&#9670;&#160;</a></span>getCodeFromId()</h2>
 
@@ -429,7 +744,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves the location code corresponding to a given ID. </p>
+<p>Retrieves the code associated with a given ID. </p>
+<p>Retrieves the location code corresponding to a given ID.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The unique ID to look up. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The corresponding code as a string.</dd></dl>
 <p>This function searches for the location code associated with a specific ID using the <code>idToCode</code> mapping. If the ID is not found, an error message is displayed, and an empty string is returned.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -440,6 +763,42 @@ Private Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The location code corresponding to the given ID, or an empty string if the ID is not found.</dd></dl>
 <p>The function checks if the ID exists in the <code>idToCode</code> map. If not, it logs an error message and returns an empty value. Otherwise, it retrieves and returns the corresponding code.</p>
 <p>The time complexity is O(1) on average for map lookups. </p>
+
+</div>
+</div>
+<a id="ab9cdda3850c172ca13d4fd7b544f05b1" name="ab9cdda3850c172ca13d4fd7b544f05b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9cdda3850c172ca13d4fd7b544f05b1">&#9670;&#160;</a></span>getIdFromCode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Graph::getIdFromCode </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>code</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the unique ID associated with a given code. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>The code to look up. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The corresponding unique ID as a string.</dd></dl>
+<p>This function looks up the corresponding ID for a provided location code in the <code>codeToId</code> map. If the code does not exist in the map, it returns an empty string.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>The location code whose associated ID is to be retrieved. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A string representing the unique ID associated with the provided code. Returns an empty string if the code is not found in the <code>codeToId</code> map.</dd></dl>
+<p>The function uses the <code>codeToId</code> map to perform the lookup and ensures that an invalid code will result in a safe, empty string output.</p>
+<p>Timecomplexity O(1), as the lookup operation in the unordered map is performed in constant time on average. </p>
 
 </div>
 </div>
@@ -462,7 +821,16 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Calculates the total travel time for a given route. </p>
+<p>Calculates the total time for a given route and mode of transportation. </p>
+<p>Calculates the total travel time for a given route.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">route</td><td>A vector of strings representing the route. </td></tr>
+    <tr><td class="paramname">mode</td><td>The mode of transportation ("driving" or "walking"). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The total time as an integer.</dd></dl>
 <p>This function computes the total time required to traverse a route based on the specified mode of transportation ("driving" or "walking").</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -492,7 +860,14 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Loads distances between locations from a CSV file and updates the graph. </p>
+<p>Loads distance data from a file. </p>
+<p>Loads distances between locations from a CSV file and updates the graph.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>The name of the file containing distance data.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>This function reads a CSV file containing pairs of locations along with driving and walking times. The extracted data is used to update the adjacency list of the graph with distance information.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -526,8 +901,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Loads locations from a CSV file and updates the graph. </p>
-<p>This function reads a CSV file containing locations, IDs, codes, and parking information. The extracted data is then stored in the internal data structures of the <a class="el" href="class_graph.html">Graph</a> class.</p>
+<p>Loads location data from a file. </p>
+<p>Loads locations from a CSV file and updates the graph.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>The name of the file containing location data.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function reads a CSV file containing locations, IDs, codes, and parking information. The extracted data is then stored in the internal data structures of the <a class="el" href="class_graph.html" title="A class representing a graph structure for route planning.">Graph</a> class.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>The name of the CSV file containing the locations to be loaded.</td></tr>
@@ -560,7 +942,14 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Prints all edges originating from a specific node. </p>
+<p>Prints the edges originating from a specified node. </p>
+<p>Prints all edges originating from a specific node.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The unique ID of the node.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>This function displays the connections (edges) from a node identified by its ID. It includes the destination nodes and the respective driving and walking times.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -593,6 +982,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>A map of codes to their corresponding unique IDs. </p>
 
 </div>
 </div>
@@ -615,6 +1005,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>A map of unique IDs to their corresponding codes. </p>
 
 </div>
 </div>
@@ -637,6 +1028,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>A map of node codes to their corresponding <a class="el" href="struct_node.html" title="Represents a node in the graph, including its adjacency list and parking status.">Node</a> objects. </p>
 
 </div>
 </div>

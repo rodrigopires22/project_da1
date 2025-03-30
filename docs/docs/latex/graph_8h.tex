@@ -1,5 +1,10 @@
 \doxysection{C\+:/\+Users/\+User/\+CLion\+Projects/untitled37/project\+\_\+da1/src/graph/graph.h File Reference}
 \hypertarget{graph_8h}{}\label{graph_8h}\index{C:/Users/User/CLionProjects/untitled37/project\_da1/src/graph/graph.h@{C:/Users/User/CLionProjects/untitled37/project\_da1/src/graph/graph.h}}
+
+
+Defines the \doxylink{class_graph}{Graph} class and its associated structures and methods for route planning.  
+
+
 {\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
 {\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
@@ -11,8 +16,14 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct_edge}{Edge}}
-\item 
+\begin{DoxyCompactList}\small\item\em Represents an edge in the graph, including travel times and the destination node. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{struct_node}{Node}}
-\item 
+\begin{DoxyCompactList}\small\item\em Represents a node in the graph, including its adjacency list and parking status. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_graph}{Graph}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A class representing a graph structure for route planning. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the \doxylink{class_graph}{Graph} class and its associated structures and methods for route planning. 
+
+This header file provides declarations for the \doxylink{class_graph}{Graph} class, which represents a graph of nodes and edges. The class supports various route calculations, including restricted routes, sustainable routes, and environmentally friendly routes, with constraints on parking, nodes, and segments. 

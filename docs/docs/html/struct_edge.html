@@ -110,11 +110,15 @@ $(function(){initNavTree('struct_edge.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 
+<p>Represents an edge in the graph, including travel times and the destination node.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="graph_8h_source.html">graph.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab6c35dc1902b8eb155fb0194a2afcdb1" id="r_ab6c35dc1902b8eb155fb0194a2afcdb1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6c35dc1902b8eb155fb0194a2afcdb1">operator==</a> (const <a class="el" href="struct_edge.html">Edge</a> &amp;other) const</td></tr>
+<tr class="memdesc:ab6c35dc1902b8eb155fb0194a2afcdb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator for <a class="el" href="struct_edge.html" title="Represents an edge in the graph, including travel times and the destination node.">Edge</a> comparison.  <br /></td></tr>
 <tr class="separator:ab6c35dc1902b8eb155fb0194a2afcdb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -126,15 +130,14 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a8ad2188a090eba839334279cdd55c73f" id="r_a8ad2188a090eba839334279cdd55c73f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ad2188a090eba839334279cdd55c73f">walkingTime</a></td></tr>
 <tr class="separator:a8ad2188a090eba839334279cdd55c73f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents an edge in the graph, including travel times and the destination node. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab6c35dc1902b8eb155fb0194a2afcdb1" name="ab6c35dc1902b8eb155fb0194a2afcdb1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab6c35dc1902b8eb155fb0194a2afcdb1">&#9670;&#160;</a></span>operator==()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool Edge::operator== </td>
@@ -143,12 +146,16 @@ Public Attributes</h2></td></tr>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
+
+<p>Equality operator for <a class="el" href="struct_edge.html" title="Represents an edge in the graph, including travel times and the destination node.">Edge</a> comparison. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The other <a class="el" href="struct_edge.html" title="Represents an edge in the graph, including travel times and the destination node.">Edge</a> to compare with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if both edges are equal, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -164,6 +171,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The destination node code. </p>
 
 </div>
 </div>
@@ -178,6 +186,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The travel time by driving in minutes. </p>
 
 </div>
 </div>
@@ -192,6 +201,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The travel time by walking in minutes. </p>
 
 </div>
 </div>

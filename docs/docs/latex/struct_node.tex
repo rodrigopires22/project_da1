@@ -2,6 +2,11 @@
 \hypertarget{struct_node}{}\label{struct_node}\index{Node@{Node}}
 
 
+Represents a node in the graph, including its adjacency list and parking status.  
+
+
+
+
 {\ttfamily \#include $<$graph.\+h$>$}
 
 \doxysubsubsection*{Public Attributes}
@@ -15,6 +20,9 @@ bool \mbox{\hyperlink{struct_node_a96d1a3191dc4c2073af753518148b8a7}{has\+Parkin
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Represents a node in the graph, including its adjacency list and parking status. 
+
 \doxysubsection{Member Data Documentation}
 \Hypertarget{struct_node_aef4f839cd2756969667f068cf397a218}\index{Node@{Node}!adj@{adj}}
 \index{adj@{adj}!Node@{Node}}
@@ -22,19 +30,19 @@ bool \mbox{\hyperlink{struct_node_a96d1a3191dc4c2073af753518148b8a7}{has\+Parkin
 {\footnotesize\ttfamily \label{struct_node_aef4f839cd2756969667f068cf397a218} 
 std\+::vector$<$\mbox{\hyperlink{struct_edge}{Edge}}$>$ Node\+::adj}
 
-\Hypertarget{struct_node_a3c244634a133fb120e521735db5c0d06}\index{Node@{Node}!code@{code}}
+A list of edges connecting to other nodes. \Hypertarget{struct_node_a3c244634a133fb120e521735db5c0d06}\index{Node@{Node}!code@{code}}
 \index{code@{code}!Node@{Node}}
 \doxysubsubsection{\texorpdfstring{code}{code}}
 {\footnotesize\ttfamily \label{struct_node_a3c244634a133fb120e521735db5c0d06} 
 std\+::string Node\+::code}
 
-\Hypertarget{struct_node_a96d1a3191dc4c2073af753518148b8a7}\index{Node@{Node}!hasParking@{hasParking}}
+The code identifying the node. \Hypertarget{struct_node_a96d1a3191dc4c2073af753518148b8a7}\index{Node@{Node}!hasParking@{hasParking}}
 \index{hasParking@{hasParking}!Node@{Node}}
 \doxysubsubsection{\texorpdfstring{hasParking}{hasParking}}
 {\footnotesize\ttfamily \label{struct_node_a96d1a3191dc4c2073af753518148b8a7} 
 bool Node\+::has\+Parking}
 
-
+Indicates whether the node has parking available. 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

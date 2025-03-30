@@ -6,6 +6,25 @@
 #include <set>
 using namespace std;
 
+
+/**
+ * @brief Displays the main menu for the urban route planner application.
+ *
+ * This function outputs a formatted menu with options for the user to choose from. It provides various route planning features,
+ * including environmentally-friendly routes and restricted routes.
+ *
+ * Menu options:
+ * - Option 1: Find the best route and independent alternative route.
+ * - Option 2: Plan a route with restrictions.
+ * - Option 3: Plan a sustainable route.
+ * - Option 4: Exit the application.
+ *
+ * @details The function uses standard output (`cout`) to display a menu with separators and prompts the user to choose an option.
+ * It is primarily used as the starting point for user interactions within the application.
+ *
+ * Timecomplexity O(1), as it involves only printing operations to standard output.
+ */
+
 void showMenu() {
     cout << "============================\n";
     cout << "  Planeador de Rotas Urbanas \n";
@@ -17,6 +36,22 @@ void showMenu() {
     cout << "Escolha uma opcao: ";
 }
 
+/**
+ * @brief Extracts the value after the first colon (:) in a string and trims whitespace.
+ *
+ * This function parses a given string to retrieve the content following the first colon (:).
+ * It also removes leading and trailing whitespace, including spaces, tabs, carriage returns, and newline characters.
+ *
+ * @param line The input string from which the value is to be extracted.
+ * @return A string containing the value after the first colon (:), with whitespace removed.
+ * If no colon is found, an empty string is returned.
+ *
+ * @details The function uses `std::string::find` to locate the colon, and `std::string::substr` to extract the value.
+ * Leading and trailing whitespace are removed using `std::string::erase` and `std::string::find_first_not_of`/`std::string::find_last_not_of`.
+ *
+ * Timecomplexity O(n), where n is the length of the input string. This accounts for the search for the colon and trimming operations.
+ */
+
 string extractValue(const string& line) {
     size_t pos = line.find(':');
     if (pos == string::npos) return "";
@@ -25,6 +60,24 @@ string extractValue(const string& line) {
     value.erase(value.find_last_not_of(" \t\r\n") + 1);
     return value;
 }
+
+/**
+ * @brief Parses a string representation of segments to avoid and converts them to codes using a graph.
+ *
+ * This function processes a string of segments in the format "(id1,id2)", extracts valid segments,
+ * and maps their IDs to codes using the provided graph. Invalid or improperly formatted segments are skipped.
+ *
+ * @param segmentStr The input string containing segments in the format "(id1,id2)", separated by closing parentheses.
+ * @param graph The graph instance used to convert IDs to codes.
+ * @return A set of pairs representing the segments to avoid. Each pair contains two location codes corresponding to the IDs in the input string.
+ *
+ * @details The function splits the input string into individual segments, validates each segment, and uses
+ * the `getCodeFromId` method of the `Graph` class to retrieve codes for the given IDs. Only segments with valid codes are added to the resulting set.
+ *
+ * Timecomplexity O(m * n), where:
+ * - m is the number of segments in the input string.
+ * - n is the average complexity of the `getCodeFromId` function, which is typically O(1) for an unordered map lookup.
+ */
 
 set<pair<string, string>> parseAvoidSegments(const string& segmentStr, Graph& graph) {
     set<pair<string, string>> segments;
@@ -52,6 +105,26 @@ set<pair<string, string>> parseAvoidSegments(const string& segmentStr, Graph& gr
     }
     return segments;
 }
+
+/**
+ * @brief Processes a batch file to execute route planning tasks based on specified modes and constraints.
+ *
+ * This function reads a file containing route planning requests, parses the data, and generates the corresponding results.
+ * The results are written to an output file. Supported modes include driving, walking, driving-restricted, and driving-walking.
+ *
+ * @param graph The graph instance used for route calculations.
+ * @param filenameIn The name of the input file containing route requests.
+ * @param filenameOut The name of the output file where results are written.
+ *
+ * @details The function reads the input file line by line and processes requests based on the specified mode:
+ * - "driving" or "walking": Calculates the best and alternative routes.
+ * - "driving-restricted": Computes routes with specific nodes and segments to avoid and an optional node to include.
+ * - "driving-walking": Finds environmentally friendly routes with a maximum walking time and suggests alternatives if no route is found.
+ * For invalid requests, an appropriate error message is written to the output file.
+ *
+ * Timecomplexity O(T), where T is the total number of requests in the input file.
+ * Each request involves graph operations such as route finding and parsing, which depend on the complexity of the `Graph` methods invoked.
+ */
 
 void processBatchFile(Graph& graph, const string& filenameIn, const string& filenameOut) {
     ifstream input(filenameIn);
