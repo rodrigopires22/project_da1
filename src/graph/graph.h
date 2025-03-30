@@ -67,6 +67,25 @@ public:
         const std::unordered_set<std::string>& avoidNodes,
         const std::set<std::pair<std::string, std::string>>& avoidSegments
     );
+    std::pair<std::vector<std::string>, int> findSustainableRouteWithoutParking(
+        const std::string& source,
+        const std::string& dest,
+        const std::unordered_set<std::string>& avoidNodes,
+        const std::set<std::pair<std::string, std::string>>& avoidSegments
+    );
+    std::vector<std::tuple<
+        std::vector<std::string>, int,   
+        std::vector<std::string>, int,   
+        std::vector<std::string>, int,   
+        std::string                    
+    >>
+    findTopEnvironmentallyFriendlyRoutes(
+        const std::string& source,
+        const std::string& dest,
+        int maxWalkingTime,
+        const std::unordered_set<std::string>& avoidNodes,
+        const std::set<std::pair<std::string, std::string>>& avoidSegments,
+        int maxResults);
 };
 
-#endif // GRAPH_H
+#endif

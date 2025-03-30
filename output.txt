@@ -1,4 +1,13 @@
-Source:1
-Destination:10
-RestrictedDrivingRoute:1,128,431,719,638,984,985,976,695,690,725,686,744,339,1134,726,786,693,698,103,731,1169,1167,1162,392,21,392,1162,1167,1169,731,103,706,789,716,709,699,862,600,620,836,593,129,203,859,567,455,190,1248,221,939,899,871,1060,10(173)
+Source:8
+Destination:5
+DrivingRoute:none
+ParkingNode:none
+WalkingRoute:none
+TotalTime:
+Message:No possible route with max. walking time of 5 minutes
 
+Approximate Alternatives:
+DrivingRoute1:8,4,2,3(19)
+ParkingNode1:3
+WalkingRoute1:3,5(10)
+TotalTime1:29

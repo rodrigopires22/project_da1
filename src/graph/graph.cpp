@@ -362,3 +362,128 @@ Graph::findEnvironmentallyFriendlyRoute(
             bestWalkingRoute, bestWalkingTime,
             bestParkingNode};
 }
+
+
+std::pair<std::vector<std::string>, int> Graph::findSustainableRouteWithoutParking(
+    const std::string& source,
+    const std::string& dest,
+    const std::unordered_set<std::string>& avoidNodes,
+    const std::set<std::pair<std::string, std::string>>& avoidSegments) {
+
+    auto runDijkstra = [&](const std::string& src, const std::string& dst) -> std::pair<std::vector<std::string>, int> {
+        std::unordered_map<std::string, int> dist;
+        std::unordered_map<std::string, std::string> parent;
+        std::priority_queue<std::pair<int, std::string>, std::vector<std::pair<int, std::string>>, std::greater<>> pq;
+
+        for (const auto& [code, node] : nodes)
+            dist[code] = std::numeric_limits<int>::max();
+
+        if (avoidNodes.count(src) || avoidNodes.count(dst) || nodes.at(src).hasParking || nodes.at(dst).hasParking)
+            return {{}, std::numeric_limits<int>::max()};
+
+        dist[src] = 0;
+        pq.push({0, src});
+
+        while (!pq.empty()) {
+            auto [d, u] = pq.top();
+            pq.pop();
+
+            if (avoidNodes.count(u) || nodes[u].hasParking) continue;
+            if (d > dist[u]) continue;
+
+            for (const auto& edge : nodes[u].adj) {
+                if (avoidNodes.count(edge.dest) || nodes[edge.dest].hasParking) continue;
+                if (avoidSegments.count({u, edge.dest}) || avoidSegments.count({edge.dest, u})) continue;
+
+                int weight = edge.walkingTime;
+                if (weight == std::numeric_limits<int>::max()) continue;
+
+                int newDist = d + weight;
+                if (newDist < dist[edge.dest]) {
+                    dist[edge.dest] = newDist;
+                    parent[edge.dest] = u;
+                    pq.push({newDist, edge.dest});
+                }
+            }
+        }
+
+        if (dist[dst] == std::numeric_limits<int>::max()) return {{}, std::numeric_limits<int>::max()};
+
+        std::vector<std::string> path;
+        for (std::string at = dst; at != src; at = parent[at])
+            path.push_back(at);
+        path.push_back(src);
+        std::reverse(path.begin(), path.end());
+
+        return {convertCodesToIds(path), dist[dst]};
+    };
+
+    return runDijkstra(source, dest);
+}
+
+std::vector<std::tuple<
+    std::vector<std::string>, int,   
+    std::vector<std::string>, int,   
+    std::vector<std::string>, int,   
+    std::string                      
+>>
+Graph::findTopEnvironmentallyFriendlyRoutes(
+    const std::string& source,
+    const std::string& dest,
+    int maxWalkingTime,
+    const std::unordered_set<std::string>& avoidNodes,
+    const std::set<std::pair<std::string, std::string>>& avoidSegments,
+    int maxResults)
+{
+    using ResultTuple = std::tuple<
+        std::vector<std::string>, int,
+        std::vector<std::string>, int,
+        std::vector<std::string>, int,
+        std::string>;
+
+    std::vector<ResultTuple> candidates;
+
+    for (int walkLimit = maxWalkingTime + 1; walkLimit <= 15; ++walkLimit) {
+        for (const auto& [code, node] : nodes) {
+            if (!node.hasParking || code == source || code == dest || avoidNodes.count(code)) continue;
+
+            auto driving = findRestrictedRoute(source, code, "driving", avoidNodes, avoidSegments, "");
+            auto walking = findRestrictedRoute(code, dest, "walking", avoidNodes, avoidSegments, "");
+
+            if (driving.first.empty() || walking.first.empty()) continue;
+
+            int walkingTime = walking.second;
+            if (walkingTime > walkLimit) continue;
+
+            int totalTime = driving.second + walkingTime;
+
+            std::vector<std::string> fullRoute = driving.first;
+            fullRoute.pop_back(); 
+            fullRoute.insert(fullRoute.end(), walking.first.begin(), walking.first.end());
+
+            candidates.push_back({
+                fullRoute, totalTime,
+                driving.first, driving.second,
+                walking.first, walking.second,
+                code
+            });
+        }
+    }
+
+    std::sort(candidates.begin(), candidates.end(), [](const ResultTuple& a, const ResultTuple& b) {
+        return std::get<1>(a) < std::get<1>(b);  
+    });
+
+    std::vector<ResultTuple> uniqueResults;
+    std::unordered_set<std::string> seenParking;
+
+    for (const auto& candidate : candidates) {
+        const std::string& parking = std::get<6>(candidate);
+        if (seenParking.count(parking)) continue;
+        seenParking.insert(parking);
+        uniqueResults.push_back(candidate);
+        if ((int)uniqueResults.size() == maxResults) break;
+    }
+
+    return uniqueResults;
+}
